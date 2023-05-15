@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ArkanoidComponent } from './arkanoid/arkanoid.component';
 
 const routes: Routes = [
-  { path: 'game', component: ArkanoidComponent },
-  { path: '*', component: ArkanoidComponent },
-  { path: '', component: ArkanoidComponent }
+  {
+    path: 'game',
+    loadChildren: () => import('./arkanoid/arkanoid.module').then(m => m.ArkanoidModule)
+  },
+  {
+    path: '',
+    redirectTo: 'game',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

@@ -1,1 +1,25 @@
-<canvas #gameCanvas width="{{width}}" height="{{height}}"></canvas>
+<div class="arkanoid-container">
+  <div class="arkanoid-game-container">
+    <canvas #gameCanvas class="arkanoid-game" width="{{width}}" height="{{height}}"></canvas>
+    <div class="score-container">
+      <div class="player-score player-1-score">
+        <div class="player-name">Player 1</div>
+        <div class="score-value">{{player1Score}}</div>
+      </div>
+      <div class="player-score player-2-score">
+        <div class="player-name">Player 2</div>
+        <div class="score-value">{{player2Score}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="arkanoid-controls-container">
+    <button mat-raised-button class="play-button" color="primary" (click)="playGame()">
+      <mat-icon>play_arrow</mat-icon>
+      <span>Play</span>
+    </button>
+    <button mat-raised-button class="reset-button" color="accent">
+      <mat-icon>restart_alt</mat-icon>
+      <span>Reset</span>
+    </button>
+  </div>
+</div>

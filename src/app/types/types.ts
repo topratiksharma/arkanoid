@@ -10,13 +10,6 @@ export interface ControlState {
     downPressed: boolean;
 }
 
-export const Controls ={
-    UP: 'ArrowUp',
-    DOWN : 'ArrowDown',
-    W: 'KeyW',
-    S: 'KeyS'
-}
-
 export interface SpeedRatio {
     x: number;
     y: number;
