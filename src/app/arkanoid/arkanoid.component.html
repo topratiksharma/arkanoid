@@ -13,11 +13,12 @@
     </div>
   </div>
   <div class="arkanoid-controls-container">
-    <button mat-raised-button class="play-button" color="primary" (click)="playGame()">
+    <button mat-raised-button class="play-button" color="primary" (click)="playGame(); playButton.disabled =true"
+      #playButton>
       <mat-icon>play_arrow</mat-icon>
       <span>Play</span>
     </button>
-    <button mat-raised-button class="reset-button" color="accent">
+    <button mat-raised-button class="reset-button" color="accent" (click)="resetPlayground()">
       <mat-icon>restart_alt</mat-icon>
       <span>Reset</span>
     </button>
