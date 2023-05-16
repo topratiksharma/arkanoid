@@ -8,6 +8,8 @@ import {
 import { Arkanoid } from '../helper-classes/arkanoid';
 import { Boundaries, ControlState } from '../types/types';
 import { CONFIG, CONTROLS } from './contants';
+import { Paddle } from '../helper-classes/paddle';
+import { Ball } from '../helper-classes/ball';
 
 @Component({
   selector: 'app-arkanoid',
@@ -55,12 +57,19 @@ export class ArkanoidComponent implements AfterViewInit {
   private renderFrame(): void {
     if (this.arkanoidGame.checkScore()) {
       clearInterval(this.interval);
-      const scoreMessage =
-        this.arkanoidGame.checkScore() === 'left'
-          ? 'Player 2 scored!'
-          : 'Player 1 scored!';
+      let scoreMessage = 'Player 1 scored!'
+      if (this.arkanoidGame.checkScore() === 'left') {
+        scoreMessage = 'Player 2 scored!';
+        this.player2Score++
+      } else {
+        this.player1Score++
+      }
       this.context.font = '30px Verdana';
       this.context.fillText(scoreMessage, 250, 300); // TODO: Add Game Over in the middle
+
+      setTimeout(() => {
+        this.restartForNextRound();
+      }, 500);
       return;
     }
 
@@ -129,5 +138,23 @@ export class ArkanoidComponent implements AfterViewInit {
     this.context.beginPath();
     this.context.arc(bounds.left, bounds.top, 10, 0, 2 * Math.PI);
     this.context.fill();
+  }
+
+  public restartForNextRound(): void {
+    this.context.clearRect(0, 0, this.width, this.height);
+    this.repositionPaddles();
+    this.playGame();
+  }
+
+  private repositionPaddles(): void {
+    this.arkanoidGame.ball = new Ball(
+      15,
+      15,
+      2,
+      { x: this.height / 2, y: this.width / 2 },
+      { x: 1, y: 1 }
+    );
+    this.arkanoidGame.player1 = new Paddle(100, 20, 1.5, { x: 5, y: this.height / 2 });
+    this.arkanoidGame.player2 = new Paddle(100, 20, 1.5, { x: this.width - 5, y: this.height / 2 });
   }
 }
