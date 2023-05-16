@@ -10,112 +10,96 @@ import { Boundaries, ControlState } from '../types/types';
 import { CONFIG, CONTROLS } from './contants';
 
 @Component({
-  selector: 'arkanoid',
+  selector: 'app-arkanoid',
   templateUrl: './arkanoid.component.html',
   styleUrls: ['./arkanoid.component.scss'],
 })
 export class ArkanoidComponent implements AfterViewInit {
-  @ViewChild('gameCanvas') canvasElement!: ElementRef;
+  @ViewChild('gameCanvas')
+  canvasElement!: ElementRef;
 
-  public width: number = 800;
-  public height: number = 600;
+  public width = 800;
+  public height = 600;
 
   private context!: CanvasRenderingContext2D;
   private arkanoidGame: Arkanoid;
-  private ticksPerSecond: number = 60;
+  private ticksPerSecond = 60;
 
-  private controlState: ControlState;
   public player2Score = 0;
   public player1Score = 0;
   private interval: any;
+  private controlState: ControlState = { upPressed: false, downPressed: false };
 
   constructor() {
     this.arkanoidGame = new Arkanoid(this.height, this.width);
-    this.controlState = { upPressed: false, downPressed: false };
   }
 
   public ngAfterViewInit(): void {
-    this.context = this.canvasElement?.nativeElement.getContext('2d');
-    // Draw background
-    this.context.fillStyle = CONFIG.BACKGROUND_COLOR;
-    this.context.fillRect(0, 0, this.width, this.height);
-
-    // Draw player1 paddle
-    this.addPlayer1Panel();
-
-    // Draw player2 paddle
-    this.addPlayer2Panel();
+    this.context = this.canvasElement.nativeElement.getContext('2d');
+    this.drawBackground();
+    this.drawPlayer1Paddle();
+    this.drawPlayer2Paddle();
   }
 
-  public playGame() {
+  public playGame(): void {
     this.renderFrame();
-    this.interval = setInterval(
-      () => this.arkanoidGame.tick(this.controlState),
-      1 / this.ticksPerSecond
-    );
+    this.interval = setInterval(() => {
+      this.arkanoidGame.tick(this.controlState);
+    }, 1 / this.ticksPerSecond);
   }
 
-  public resetPlayground() {
+  public resetPlayground(): void {
     location.reload();
   }
 
   private renderFrame(): void {
-    // Only run if game still going
-    if (this.arkanoidGame.checkScore() === 'left') {
-      this.player2Score++;
-      this.context.font = '30px Verdana';
-      this.context.fillText('Player 2 scored!', 250, 300); // TODO: Add Over in middle
+    if (this.arkanoidGame.checkScore()) {
       clearInterval(this.interval);
-      return;
-    } else if (this.arkanoidGame.checkScore() === 'right') {
-      this.player1Score++;
+      const scoreMessage =
+        this.arkanoidGame.checkScore() === 'left'
+          ? 'Player 2 scored!'
+          : 'Player 1 scored!';
       this.context.font = '30px Verdana';
-      this.context.fillText('Player 1 scored!', 250, 300); // TODO: Add Over in middle
-      clearInterval(this.interval);
+      this.context.fillText(scoreMessage, 250, 300); // TODO: Add Game Over in the middle
       return;
     }
 
-    // Draw background
-    this.context.fillStyle = CONFIG.BACKGROUND_COLOR;
-    this.context.fillRect(0, 0, this.width, this.height);
+    this.drawBackground();
+    this.drawPlayer1Paddle();
+    this.drawPlayer2Paddle();
+    this.drawBall();
 
-    // Draw player1 paddle
-    this.addPlayer1Panel();
-
-    // Draw player2 paddle
-    this.addPlayer2Panel();
-
-    // Draw ball
-    this.addBall();
-
-    // Render next frame
     window.requestAnimationFrame(() => this.renderFrame());
-    this.context.fillStyle = 'rgb(255,255,255)';
   }
 
   @HostListener('window:keydown', ['$event'])
-  public keyUp(event: KeyboardEvent) {
-    if (event.code == CONTROLS.UP) {
+  public keyUp(event: KeyboardEvent): void {
+    if (event.code === CONTROLS.UP) {
       this.controlState.upPressed = true;
     }
-    if (event.code == CONTROLS.DOWN) {
+    if (event.code === CONTROLS.DOWN) {
       this.controlState.downPressed = true;
     }
   }
 
   @HostListener('window:keyup', ['$event'])
-  public keyDown(event: KeyboardEvent) {
-    if (event.code == CONTROLS.UP) {
+  public keyDown(event: KeyboardEvent): void {
+    if (event.code === CONTROLS.UP) {
       this.controlState.upPressed = false;
     }
-    if (event.code == CONTROLS.DOWN) {
+    if (event.code === CONTROLS.DOWN) {
       this.controlState.downPressed = false;
     }
   }
 
-  private addPlayer1Panel() {
+  private drawBackground(): void {
+    this.context.fillStyle = CONFIG.BACKGROUND_COLOR;
+    this.context.fillRect(0, 0, this.width, this.height);
+  }
+
+  private drawPlayer1Paddle(): void {
     this.context.fillStyle = CONFIG.PLAYER_1.COLOR;
-    let player1 = this.arkanoidGame.player1;
+    const player1 = this.arkanoidGame.player1;
     const bounds: Boundaries = player1.getCollisionBoundaries();
     this.context.fillRect(
       bounds.left,
@@ -125,9 +109,10 @@ export class ArkanoidComponent implements AfterViewInit {
     );
   }
 
-  private addPlayer2Panel() {
+  private drawPlayer2Paddle(): void {
     this.context.fillStyle = CONFIG.PLAYER_2.COLOR;
-    let player2 = this.arkanoidGame.player2;
+    const player2 = this.arkanoidGame.player2;
+
     const bounds: Boundaries = player2.getCollisionBoundaries();
     this.context.fillRect(
       bounds.left,
@@ -137,8 +122,8 @@ export class ArkanoidComponent implements AfterViewInit {
     );
   }
 
-  private addBall() {
-    let ball = this.arkanoidGame.ball;
+  private drawBall(): void {
+    const ball = this.arkanoidGame.ball;
     const bounds: Boundaries = ball.getCollisionBoundaries();
     this.context.fillStyle = CONFIG.BALL.COLOR;
     this.context.beginPath();
