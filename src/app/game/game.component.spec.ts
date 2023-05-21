@@ -166,27 +166,27 @@ describe('GameComponent', () => {
     });
 
     it('should have a player1 object with a width of 20', () => {
-      const player1 = component['GameGame'].player1;
+      const player1 = component['arkanoidGame'].player1;
       expect(player1.getWidth()).toEqual(20);
     });
 
     it('should have a player2 object with a width of 20', () => {
-      const player2 = component['GameGame'].player2;
+      const player2 = component['arkanoidGame'].player2;
       expect(player2.getWidth()).toEqual(20);
     });
 
     it('should have a ball object with a starting position of { x: 300, y: 400 }', () => {
-      const ball = component['GameGame'].ball;
+      const ball = component['arkanoidGame'].ball;
       expect(ball.getPosition()).toEqual({ x: 300, y: 400 });
     });
 
     it('should have a player1 object with a starting position of { x: 5, y: 300 }', () => {
-      const player1 = component['GameGame'].player1;
+      const player1 = component['arkanoidGame'].player1;
       expect(player1.getPosition()).toEqual({ x: 5, y: 300 });
     });
 
     it('should have a player2 object with a starting position of { x: 795, y: 300 }', () => {
-      const player2 = component['GameGame'].player2;
+      const player2 = component['arkanoidGame'].player2;
       expect(player2.getPosition()).toEqual({ x: 795, y: 300 });
     });
   });

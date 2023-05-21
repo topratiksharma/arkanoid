@@ -17,19 +17,18 @@ import { Ball } from './helper-classes/ball';
   styleUrls: ['./game.component.scss'],
 })
 export class GameComponent implements AfterViewInit {
-  @ViewChild('gameCanvas')
-  canvasElement!: ElementRef;
+  @ViewChild('gameCanvas', { static: false }) canvasElement!: ElementRef;
 
   public width = 800;
   public height = 600;
 
   private context!: CanvasRenderingContext2D;
-  private GameGame: Game;
+  private arkanoidGame: Game;
   private ticksPerSecond = 60;
-  public isTwoPlayerMode = true; // Default to 2-player mode
+  public isTwoPlayerMode = true;
   public player2Score = 0;
   public player1Score = 0;
-  public interval:any;
+  public interval: any;
   private controlState: ControlState = {
     up: false,
     down: false,
@@ -38,21 +37,20 @@ export class GameComponent implements AfterViewInit {
   };
 
   constructor() {
-    this.GameGame = new Game(this.height, this.width);
+    this.arkanoidGame = new Game(this.height, this.width);
   }
 
   public ngAfterViewInit(): void {
     this.context = this.canvasElement.nativeElement.getContext('2d');
     this.drawBackground();
-    this.drawPlayer1Paddle();
-    this.drawPlayer2Paddle();
+    this.drawPaddles();
   }
 
   public playGame(): void {
     this.renderFrame();
     this.interval = setInterval(() => {
-      this.GameGame.tick(this.controlState, this.isTwoPlayerMode);
-    }, 1 / this.ticksPerSecond);
+      this.arkanoidGame.tick(this.controlState, this.isTwoPlayerMode);
+    }, 10 / this.ticksPerSecond);
   }
 
   public resetPlayground(): void {
@@ -67,10 +65,10 @@ export class GameComponent implements AfterViewInit {
   }
 
   private renderFrame(): void {
-    if (this.GameGame.checkScore()) {
+    if (this.arkanoidGame.checkScore()) {
       clearInterval(this.interval);
       let scoreMessage = 'Player 1 scored!';
-      if (this.GameGame.checkScore() === 'left') {
+      if (this.arkanoidGame.checkScore() === 'left') {
         scoreMessage = this.isTwoPlayerMode ? 'Player 2 scored!' : 'AI Scored';
         this.player2Score++;
       } else {
@@ -86,8 +84,7 @@ export class GameComponent implements AfterViewInit {
     }
 
     this.drawBackground();
-    this.drawPlayer1Paddle();
-    this.drawPlayer2Paddle();
+    this.drawPaddles();
     this.drawBall();
 
     window.requestAnimationFrame(() => this.renderFrame());
@@ -130,33 +127,24 @@ export class GameComponent implements AfterViewInit {
     this.context.fillRect(0, 0, this.width, this.height);
   }
 
-  private drawPlayer1Paddle(): void {
-    this.context.fillStyle = CONFIG.PLAYER_1.COLOR;
-    const player1 = this.GameGame.player1;
-    const bounds: Boundaries = player1.getCollisionBoundaries();
-    this.context.fillRect(
-      bounds.left,
-      bounds.top,
-      player1.getWidth(),
-      player1.getHeight()
-    );
+  private drawPaddles(){
+    this.drawPlayerPaddle(this.arkanoidGame.player1, CONFIG.PLAYER_1.COLOR);
+    this.drawPlayerPaddle(this.arkanoidGame.player2, CONFIG.PLAYER_2.COLOR);
   }
 
-  private drawPlayer2Paddle(): void {
-    this.context.fillStyle = CONFIG.PLAYER_2.COLOR;
-    const player2 = this.GameGame.player2;
-
-    const bounds: Boundaries = player2.getCollisionBoundaries();
+  private drawPlayerPaddle(player: Paddle, color: string): void {
+    this.context.fillStyle = color;
+    const bounds: Boundaries = player.getCollisionBoundaries();
     this.context.fillRect(
       bounds.left,
       bounds.top,
-      player2.getWidth(),
-      player2.getHeight()
+      player.getWidth(),
+      player.getHeight()
     );
   }
 
   private drawBall(): void {
-    const ball = this.GameGame.ball;
+    const ball = this.arkanoidGame.ball;
     const bounds: Boundaries = ball.getCollisionBoundaries();
     this.context.fillStyle = CONFIG.BALL.COLOR;
     this.context.beginPath();
@@ -170,18 +158,18 @@ export class GameComponent implements AfterViewInit {
   }
 
   private repositionPaddles(): void {
-    this.GameGame.ball = new Ball(
+    this.arkanoidGame.ball = new Ball(
       15,
       15,
       2,
       { x: this.height / 2, y: this.width / 2 },
       { x: 1, y: 1 }
     );
-    this.GameGame.player1 = new Paddle(100, 20, 1.5, {
+    this.arkanoidGame.player1 = new Paddle(100, 20, 1.5, {
       x: 5,
       y: this.height / 2,
     });
-    this.GameGame.player2 = new Paddle(100, 20, 1.5, {
+    this.arkanoidGame.player2 = new Paddle(100, 20, 1.5, {
       x: this.width - 5,
       y: this.height / 2,
     });

@@ -12,5 +12,6 @@ export class FooterComponent {
   openInstructions() {
     this.dialog.open(InstructionsComponent, {
       width: '600px',
-    });  }
+    });
+  }
 }
