@@ -35,6 +35,7 @@ export class GameComponent implements AfterViewInit {
     w: false,
     s: false,
   };
+  public animationId!: number;
 
   constructor() {
     this.arkanoidGame = new Game(this.height, this.width);
@@ -62,6 +63,7 @@ export class GameComponent implements AfterViewInit {
     this.player1Score = 0;
     this.player2Score = 0;
     clearInterval(this.interval);
+    window.cancelAnimationFrame(this.animationId);
   }
 
   private renderFrame(): void {
@@ -87,7 +89,7 @@ export class GameComponent implements AfterViewInit {
     this.drawPaddles();
     this.drawBall();
 
-    window.requestAnimationFrame(() => this.renderFrame());
+    this.animationId = window.requestAnimationFrame(() => this.renderFrame());
   }
 
   @HostListener('window:keydown', ['$event'])
@@ -127,7 +129,7 @@ export class GameComponent implements AfterViewInit {
     this.context.fillRect(0, 0, this.width, this.height);
   }
 
-  private drawPaddles(){
+  private drawPaddles() {
     this.drawPlayerPaddle(this.arkanoidGame.player1, CONFIG.PLAYER_1.COLOR);
     this.drawPlayerPaddle(this.arkanoidGame.player2, CONFIG.PLAYER_2.COLOR);
   }
