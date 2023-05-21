@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
 
-    .modal-box {
+    &__box {
         color: #3b4363;
         background-color: #fff;
         border-radius: 8px;
@@ -13,16 +13,16 @@
             line-height: initial;
             list-style: square;
         }
+    }
 
-        .modal__header {
-            display: flex;
-            justify-content: space-between;
+    &__header {
+        display: flex;
+        justify-content: space-between;
 
-            h1 {
-                text-transform: uppercase;
-                margin: 7px 14px 0 14px;
-                padding: 0;
-            }
+        h1 {
+            text-transform: uppercase;
+            margin: 7px 14px 0 14px;
+            padding: 0;
         }
     }
 

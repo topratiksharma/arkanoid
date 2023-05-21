@@ -3,11 +3,14 @@
     position: fixed;
     bottom: 0;
 
-    .attribution {
+    &__attribution {
         position: absolute;
         color: white;
         transform: translate(-50%);
         bottom: 1rem;
+    }
+    &__linkedin {
+        color: #0a66c2;
     }
 
     button {
@@ -30,8 +33,5 @@
     }
     a {
         color: #98d8f4;
-    }
-    .linkedin {
-        color: #0a66c2;
     }
 }

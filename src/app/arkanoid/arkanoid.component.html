@@ -1,26 +1,38 @@
-<div class="arkanoid-container">
-  <mat-slide-toggle class="toggle-mode" color="warn" [(ngModel)]="isTwoPlayerMode" (change)="onPlayingModeChange(); playButton.disabled = false">
-    <span class="toggle-label">Vs Player 2</span>
+<div class="arkanoid">
+  <mat-slide-toggle class="arkanoid__toggle-mode" color="warn" [(ngModel)]="isTwoPlayerMode"
+    (change)="onPlayingModeChange(); playButton.disabled = false">
+    <span class="arkanoid__toggle-label">Vs Player 2</span>
   </mat-slide-toggle>
-  <div class="arkanoid-game-container">
-    <canvas #gameCanvas class="arkanoid-game" width="{{width}}" height="{{height}}"></canvas>
-    <div class="score-container">
-      <div class="player-score player-1-score">
-        <div class="player-name">Player 1</div>
-        <div class="score-value">{{player1Score}}</div>
+  <div class="arkanoid__game-container">
+    <canvas #gameCanvas class="arkanoid__game" width="{{width}}" height="{{height}}"></canvas>
+    <div class="arkanoid__score-container">
+      <div class="arkanoid__player-score">
+        <div class="arkanoid__player-name">Player 1</div>
+        <div class="arkanoid__score-value">{{player1Score}}</div>
       </div>
-      <div class="player-score player-2-score">
-        <div class="player-name">{{isTwoPlayerMode ? 'Player 2' : 'Artificial Intelligence'}}</div>
-        <div class="score-value">{{player2Score}}</div>
+      <div class="arkanoid__player-score">
+        <div class="arkanoid__player-name">{{isTwoPlayerMode ? 'Player 2' : 'Artificial Intelligence'}}</div>
+        <div class="arkanoid__score-value">{{player2Score}}</div>
       </div>
     </div>
   </div>
 
-  <div class="arkanoid-controls-container">
-    <button class="button play" (click)="playGame(); playButton.disabled = true" #playButton>
+  <div class="arkanoid__controls">
+    <button class="arkanoid__button arkanoid__button--primary" (click)="playGame(); playButton.disabled = true"
+      #playButton>
       <mat-icon>play_arrow</mat-icon>
       Play</button>
-    <button class="button reset" (click)="resetPlayground()"><mat-icon>restart_alt</mat-icon>Reset</button>
+    <button class="arkanoid__button arkanoid__button--secondary"
+      (click)="resetPlayground()"><mat-icon>restart_alt</mat-icon>Reset</button>
   </div>
   <ark-footer></ark-footer>
+</div>
+
+<div class="pending-list">
+  <ul>
+    <li>Add Cypress and Karma</li>
+    <li>correct ball position</li>
+    <li>Refactoring after everything</li>
+    <li>Add lint</li>
+  </ul>
 </div>
