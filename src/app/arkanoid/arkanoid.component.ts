@@ -12,7 +12,7 @@ import { Paddle } from './helper-classes/paddle';
 import { Ball } from './helper-classes/ball';
 
 @Component({
-  selector: 'app-arkanoid',
+  selector: 'ark-arkanoid',
   templateUrl: './arkanoid.component.html',
   styleUrls: ['./arkanoid.component.scss'],
 })
