@@ -1,19 +1,37 @@
-
-
-.instructions {
-    right: 0;
-    position: absolute;
+.footer {
+    width: 100vw;
+    position: fixed;
     bottom: 0;
-  
-    &__button {
-      border: none;
-      background: none;
-      color: white;
-      cursor: pointer;
-  
-      &:hover {
-        font-weight: bold;
-        text-decoration: underline;  
-      }
+
+    .attribution {
+        position: absolute;
+        color: white;
+        transform: translate(-50%);
+        bottom: 1rem;
     }
-  }
+
+    button {
+        position: fixed;
+        bottom: 1rem;
+        padding: 7px 25px;
+        right: 1rem;
+        border-radius: 0.4rem;
+        border: 3px solid hsl(217, 16%, 45%);
+        color: lighten(hsl(217, 16%, 45%), 20%);
+        background: none;
+        font-weight: 600;
+        letter-spacing: 2px;
+
+        &:hover {
+            background-color: rgba($color: #ffffff, $alpha: 0.8);
+            color: hsl(229, 25%, 31%);
+            cursor: pointer;
+        }
+    }
+    a {
+        color: #98d8f4;
+    }
+    .linkedin {
+        color: #0a66c2;
+    }
+}
