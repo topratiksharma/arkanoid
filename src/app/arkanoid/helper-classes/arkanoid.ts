@@ -1,4 +1,4 @@
-import { ControlState } from '../types/types';
+import { ControlState } from '../../types/types';
 import { Ball } from './ball';
 import { Paddle } from './paddle';
 
@@ -29,17 +29,23 @@ export class Arkanoid {
   tick(controlState: ControlState) {
     this.ball.move();
     this.movePlayer1Paddle(controlState);
-    this.movePlayer2Paddle();
+    this.movePlayer2Paddle(controlState);
 
+    // if (true) {
+    //   this.movePlayer2Paddle(controlState);
+    //   this.movePlayer2PaddleAuto()
+    // } else {
+    //   this.movePlayer2Paddle(controlState);
+    // }
     this.checkCollisions();
   }
 
-  private movePlayer1Paddle(controlState: any) {
+  private movePlayer1Paddle(controlState: ControlState) {
     // Set acceleration, move player paddle based on input
     var paddleBounds = this.player1.getCollisionBoundaries();
-    if (controlState.upPressed && paddleBounds.top > 0) {
+    if (controlState.w && paddleBounds.top > 0) {
       this.player1.accelerateUp(0.03);
-    } else if (controlState.downPressed && paddleBounds.bottom < this.height) {
+    } else if (controlState.s && paddleBounds.bottom < this.height) {
       this.player1.accelerateDown(0.03);
     } else {
       this.player1.decelerate(0.05);
@@ -47,11 +53,23 @@ export class Arkanoid {
     this.player1.move();
   }
 
-  private movePlayer2Paddle() {
+  private movePlayer2PaddleAuto() {
     if (this.ball.getPosition().y < this.player2.getPosition().y)
       this.player2.accelerateUp(1);
     else this.player2.accelerateDown(1);
+    this.player2.move();
+  }
 
+  private movePlayer2Paddle(controlState: ControlState) {
+    // Set acceleration, move player paddle based on input
+    var paddleBounds = this.player2.getCollisionBoundaries();
+    if (controlState.up && paddleBounds.top > 0) {
+      this.player2.accelerateUp(0.03);
+    } else if (controlState.down && paddleBounds.bottom < this.height) {
+      this.player2.accelerateDown(0.03);
+    } else {
+      this.player2.decelerate(0.05);
+    }
     this.player2.move();
   }
 
@@ -88,7 +106,7 @@ export class Arkanoid {
       this.ball.setVerticalSpeedRatio(vsr);
     }
 
-    // Enemy paddle hit
+    // PLAYER-2 paddle hit
     paddleBounds = this.player2.getCollisionBoundaries();
     if (
       ballBounds.right <= paddleBounds.left &&

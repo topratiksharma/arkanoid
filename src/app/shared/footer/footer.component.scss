@@ -1,0 +1,19 @@
+
+
+.instructions {
+    right: 0;
+    position: absolute;
+    bottom: 0;
+  
+    &__button {
+      border: none;
+      background: none;
+      color: white;
+      cursor: pointer;
+  
+      &:hover {
+        font-weight: bold;
+        text-decoration: underline;  
+      }
+    }
+  }

@@ -5,11 +5,11 @@ import {
   HostListener,
   ViewChild,
 } from '@angular/core';
-import { Arkanoid } from '../helper-classes/arkanoid';
+import { Arkanoid } from './helper-classes/arkanoid';
 import { Boundaries, ControlState } from '../types/types';
 import { CONFIG, CONTROLS } from './contants';
-import { Paddle } from '../helper-classes/paddle';
-import { Ball } from '../helper-classes/ball';
+import { Paddle } from './helper-classes/paddle';
+import { Ball } from './helper-classes/ball';
 
 @Component({
   selector: 'app-arkanoid',
@@ -26,11 +26,11 @@ export class ArkanoidComponent implements AfterViewInit {
   private context!: CanvasRenderingContext2D;
   private arkanoidGame: Arkanoid;
   private ticksPerSecond = 60;
-
+  isTwoPlayerMode = true; // Default to 2-player mode
   public player2Score = 0;
   public player1Score = 0;
   private interval: any;
-  private controlState: ControlState = { upPressed: false, downPressed: false };
+  private controlState: ControlState = { up: false, down: false,  w: false, s: false };
 
   constructor() {
     this.arkanoidGame = new Arkanoid(this.height, this.width);
@@ -65,7 +65,7 @@ export class ArkanoidComponent implements AfterViewInit {
         this.player1Score++
       }
       this.context.font = '30px Verdana';
-      this.context.fillText(scoreMessage, 250, 300); // TODO: Add Game Over in the middle
+      this.context.fillText(scoreMessage, 250, 300);
 
       setTimeout(() => {
         this.restartForNextRound();
@@ -84,20 +84,32 @@ export class ArkanoidComponent implements AfterViewInit {
   @HostListener('window:keydown', ['$event'])
   public keyUp(event: KeyboardEvent): void {
     if (event.code === CONTROLS.UP) {
-      this.controlState.upPressed = true;
+      this.controlState.up = true;
     }
     if (event.code === CONTROLS.DOWN) {
-      this.controlState.downPressed = true;
+      this.controlState.down = true;
+    }
+    if (event.code === CONTROLS.W) {
+      this.controlState.w = true;
+    }
+    if (event.code === CONTROLS.S) {
+      this.controlState.s = true;
     }
   }
 
   @HostListener('window:keyup', ['$event'])
   public keyDown(event: KeyboardEvent): void {
     if (event.code === CONTROLS.UP) {
-      this.controlState.upPressed = false;
+      this.controlState.up = false;
     }
     if (event.code === CONTROLS.DOWN) {
-      this.controlState.downPressed = false;
+      this.controlState.down = false;
+    }
+    if (event.code === CONTROLS.W) {
+      this.controlState.w = false;
+    }
+    if (event.code === CONTROLS.S) {
+      this.controlState.s = false;
     }
   }
 

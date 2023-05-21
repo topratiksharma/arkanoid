@@ -1,4 +1,4 @@
-import { Boundaries, Position, SpeedRatio } from '../types/types';
+import { Boundaries, Position, SpeedRatio } from '../../types/types';
 
 export abstract class MoveableObject {
     /**

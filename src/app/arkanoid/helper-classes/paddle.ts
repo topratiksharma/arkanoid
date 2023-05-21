@@ -1,4 +1,4 @@
-import { Position, SpeedRatio } from '../types/types';
+import { Position, SpeedRatio } from '../../types/types';
 import { MoveableObject } from './moveableObject';
 
 export class Paddle extends MoveableObject {

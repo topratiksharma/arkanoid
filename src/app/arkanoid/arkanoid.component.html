@@ -1,4 +1,7 @@
 <div class="arkanoid-container">
+  <mat-slide-toggle class="toggle-mode" color="warn" [(ngModel)]="isTwoPlayerMode">
+    <span class="toggle-label">Vs Player 2</span>
+  </mat-slide-toggle>
   <div class="arkanoid-game-container">
     <canvas #gameCanvas class="arkanoid-game" width="{{width}}" height="{{height}}"></canvas>
     <div class="score-container">
@@ -7,20 +10,17 @@
         <div class="score-value">{{player1Score}}</div>
       </div>
       <div class="player-score player-2-score">
-        <div class="player-name">Player 2</div>
+        <div class="player-name">{{isTwoPlayerMode ? 'Player 2' : 'vs AI'}}</div>
         <div class="score-value">{{player2Score}}</div>
       </div>
     </div>
   </div>
+
   <div class="arkanoid-controls-container">
-    <button mat-raised-button class="play-button" color="primary" (click)="playGame(); playButton.disabled =true"
-      #playButton>
+    <button class="button play" (click)="playGame(); playButton.disabled = true" #playButton>
       <mat-icon>play_arrow</mat-icon>
-      <span>Play</span>
-    </button>
-    <button mat-raised-button class="reset-button" color="accent" (click)="resetPlayground()">
-      <mat-icon>restart_alt</mat-icon>
-      <span>Reset</span>
-    </button>
+      Play</button>
+    <button class="button reset" (click)="resetPlayground()"><mat-icon>restart_alt</mat-icon>Reset</button>
   </div>
+  <app-footer></app-footer>
 </div>

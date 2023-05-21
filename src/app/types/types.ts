@@ -6,8 +6,10 @@ export interface Boundaries {
 }
 
 export interface ControlState {
-    upPressed: boolean;
-    downPressed: boolean;
+    up: boolean;
+    down: boolean;
+    w: boolean;
+    s: boolean;
 }
 
 export interface SpeedRatio {
