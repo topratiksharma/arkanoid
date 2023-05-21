@@ -26,11 +26,11 @@ export class ArkanoidComponent implements AfterViewInit {
   private context!: CanvasRenderingContext2D;
   private arkanoidGame: Arkanoid;
   private ticksPerSecond = 60;
-  isTwoPlayerMode = true; // Default to 2-player mode
+  public isTwoPlayerMode = true; // Default to 2-player mode
   public player2Score = 0;
   public player1Score = 0;
   private interval: any;
-  private controlState: ControlState = { up: false, down: false,  w: false, s: false };
+  private controlState: ControlState = { up: false, down: false, w: false, s: false };
 
   constructor() {
     this.arkanoidGame = new Arkanoid(this.height, this.width);
@@ -46,7 +46,7 @@ export class ArkanoidComponent implements AfterViewInit {
   public playGame(): void {
     this.renderFrame();
     this.interval = setInterval(() => {
-      this.arkanoidGame.tick(this.controlState);
+      this.arkanoidGame.tick(this.controlState, this.isTwoPlayerMode);
     }, 1 / this.ticksPerSecond);
   }
 
@@ -54,19 +54,26 @@ export class ArkanoidComponent implements AfterViewInit {
     location.reload();
   }
 
+  public onPlayingModeChange() {
+    this.clearAndMoveToDefaultPosition();
+    this.player1Score = 0;
+    this.player2Score = 0;
+    clearInterval(this.interval);
+  }
+
   private renderFrame(): void {
     if (this.arkanoidGame.checkScore()) {
       clearInterval(this.interval);
       let scoreMessage = 'Player 1 scored!'
       if (this.arkanoidGame.checkScore() === 'left') {
-        scoreMessage = 'Player 2 scored!';
+        scoreMessage = this.isTwoPlayerMode? 'Player 2 scored!' : 'AI Scored';
         this.player2Score++
       } else {
         this.player1Score++
       }
-      this.context.font = '30px Verdana';
-      this.context.fillText(scoreMessage, 250, 300);
-
+      this.context.fillStyle = CONFIG.TEXT.COLOR;
+      this.context.font = '25px poppins';
+      this.context.fillText(scoreMessage, this.width/3+10, 300);
       setTimeout(() => {
         this.restartForNextRound();
       }, 500);
@@ -153,8 +160,7 @@ export class ArkanoidComponent implements AfterViewInit {
   }
 
   public restartForNextRound(): void {
-    this.context.clearRect(0, 0, this.width, this.height);
-    this.repositionPaddles();
+    this.clearAndMoveToDefaultPosition()
     this.playGame();
   }
 
@@ -168,5 +174,10 @@ export class ArkanoidComponent implements AfterViewInit {
     );
     this.arkanoidGame.player1 = new Paddle(100, 20, 1.5, { x: 5, y: this.height / 2 });
     this.arkanoidGame.player2 = new Paddle(100, 20, 1.5, { x: this.width - 5, y: this.height / 2 });
+  }
+
+  private clearAndMoveToDefaultPosition() {
+    this.context.clearRect(0, 0, this.width, this.height);
+    this.repositionPaddles();
   }
 }

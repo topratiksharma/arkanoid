@@ -26,17 +26,15 @@ export class Arkanoid {
     this.player2 = new Paddle(100, 20, 1.5, { x: width - 5, y: height / 2 });
   }
 
-  tick(controlState: ControlState) {
+  public tick(controlState: ControlState, isTwoPlayerMode:boolean) {
     this.ball.move();
     this.movePlayer1Paddle(controlState);
-    this.movePlayer2Paddle(controlState);
 
-    // if (true) {
-    //   this.movePlayer2Paddle(controlState);
-    //   this.movePlayer2PaddleAuto()
-    // } else {
-    //   this.movePlayer2Paddle(controlState);
-    // }
+    if (isTwoPlayerMode) {
+      this.movePlayer2Paddle(controlState);
+    } else {
+      this.movePlayer2PaddleAuto();
+    }
     this.checkCollisions();
   }
 

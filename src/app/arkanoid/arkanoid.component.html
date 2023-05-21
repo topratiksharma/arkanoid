@@ -1,5 +1,5 @@
 <div class="arkanoid-container">
-  <mat-slide-toggle class="toggle-mode" color="warn" [(ngModel)]="isTwoPlayerMode">
+  <mat-slide-toggle class="toggle-mode" color="warn" [(ngModel)]="isTwoPlayerMode" (change)="onPlayingModeChange(); playButton.disabled = false">
     <span class="toggle-label">Vs Player 2</span>
   </mat-slide-toggle>
   <div class="arkanoid-game-container">
@@ -10,7 +10,7 @@
         <div class="score-value">{{player1Score}}</div>
       </div>
       <div class="player-score player-2-score">
-        <div class="player-name">{{isTwoPlayerMode ? 'Player 2' : 'vs AI'}}</div>
+        <div class="player-name">{{isTwoPlayerMode ? 'Player 2' : 'Artificial Intelligence'}}</div>
         <div class="score-value">{{player2Score}}</div>
       </div>
     </div>
@@ -23,4 +23,17 @@
     <button class="button reset" (click)="resetPlayground()"><mat-icon>restart_alt</mat-icon>Reset</button>
   </div>
   <ark-footer></ark-footer>
+</div>
+
+<div class="pending-list">
+  <ul>
+    <li>Add BEM model</li>
+    <li>Add Cypress and Karma</li>
+    <li>Add lint</li>
+    <li>Add Hash routing</li>
+    <li>Add instrcutions</li>
+    <li>Refactoring after everything</li>
+    <li>Add signature in footer</li>
+    <li>correct ball position</li>
+</ul>
 </div>

@@ -16,5 +16,8 @@ export const CONFIG = {
     PLAYER_2: {
         COLOR: 'green'
     },
-    BACKGROUND_COLOR:'#000000'
+    TEXT: {
+        COLOR: '#ffffff'
+    },
+    BACKGROUND_COLOR: '#000000'
 }

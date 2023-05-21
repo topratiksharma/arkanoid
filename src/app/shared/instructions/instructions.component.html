@@ -1,1 +1,13 @@
-<p>instructions works!</p>
+<div class="modal-container">
+    <div class="modal-box">
+        <div class="modal__header">
+            <h1>Instructions</h1>
+            <button mat-dialog-close>
+                <img src="../../../assets/images/close.svg" alt="Close" srcset="" />
+            </button>
+        </div>
+        <ul>
+            <li *ngFor="let rule of rules">{{rule}}</li>
+        </ul>
+    </div>
+</div>

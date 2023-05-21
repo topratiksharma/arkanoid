@@ -1,0 +1,39 @@
+.modal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .modal-box {
+        color: #3b4363;
+        background-color: #fff;
+        border-radius: 8px;
+
+        ul {
+            font-size: 16px;
+            line-height: initial;
+            list-style: square;
+        }
+
+        .modal__header {
+            display: flex;
+            justify-content: space-between;
+
+            h1 {
+                text-transform: uppercase;
+                margin: 7px 14px 0 14px;
+                padding: 0;
+            }
+        }
+    }
+
+    button {
+        background: none;
+        border: none;
+        align-self: center;
+        color: #3b4363;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
