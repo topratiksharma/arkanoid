@@ -21,7 +21,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatIconModule,
     MatSlideToggleModule,
     FormsModule,
-    MatDialogModule
-  ]
+    MatDialogModule,
+  ],
 })
-export class ArkanoidModule { }
+export class ArkanoidModule {}

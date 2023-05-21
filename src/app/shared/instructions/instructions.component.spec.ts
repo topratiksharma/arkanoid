@@ -7,13 +7,13 @@ describe('InstructionsComponent', () => {
   let component: InstructionsComponent;
   let fixture: ComponentFixture<InstructionsComponent>;
   const mockDialogRef = {
-    close: jasmine.createSpy('close')
+    close: jasmine.createSpy('close'),
   };
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [InstructionsComponent],
-      providers:[{provide:MatDialogRef, useValue:mockDialogRef}],
-      imports:[MatDialogModule, DialogModule]
+      providers: [{ provide: MatDialogRef, useValue: mockDialogRef }],
+      imports: [MatDialogModule, DialogModule],
     });
     fixture = TestBed.createComponent(InstructionsComponent);
     component = fixture.componentInstance;

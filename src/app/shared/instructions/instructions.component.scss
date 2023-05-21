@@ -1,39 +1,39 @@
 .modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__box {
+    color: #3b4363;
+    background-color: #fff;
+    border-radius: 8px;
+
+    ul {
+      font-size: 16px;
+      line-height: initial;
+      list-style: square;
+    }
+  }
+
+  &__header {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
 
-    &__box {
-        color: #3b4363;
-        background-color: #fff;
-        border-radius: 8px;
-
-        ul {
-            font-size: 16px;
-            line-height: initial;
-            list-style: square;
-        }
+    h1 {
+      text-transform: uppercase;
+      margin: 7px 14px 0 14px;
+      padding: 0;
     }
+  }
 
-    &__header {
-        display: flex;
-        justify-content: space-between;
+  button {
+    background: none;
+    border: none;
+    align-self: center;
+    color: #3b4363;
 
-        h1 {
-            text-transform: uppercase;
-            margin: 7px 14px 0 14px;
-            padding: 0;
-        }
+    &:hover {
+      cursor: pointer;
     }
-
-    button {
-        background: none;
-        border: none;
-        align-self: center;
-        color: #3b4363;
-
-        &:hover {
-            cursor: pointer;
-        }
-    }
+  }
 }

@@ -3,16 +3,15 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ArkanoidComponent } from './arkanoid.component';
 
-
 const routes: Routes = [
   {
     path: '',
-    component: ArkanoidComponent
-  }
+    component: ArkanoidComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ArkanoidRoutingModule { }
+export class ArkanoidRoutingModule {}

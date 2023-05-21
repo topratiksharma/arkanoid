@@ -10,7 +10,7 @@ describe('FooterComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [FooterComponent],
-      imports:[MatDialogModule]
+      imports: [MatDialogModule],
     });
     fixture = TestBed.createComponent(FooterComponent);
     component = fixture.componentInstance;

@@ -7,7 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
-  
+
 describe('ArkanoidComponent', () => {
   let component: ArkanoidComponent;
   let fixture: ComponentFixture<ArkanoidComponent>;
@@ -15,7 +15,13 @@ describe('ArkanoidComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ArkanoidComponent],
-      imports: [MatSlideToggleModule, SharedModule, MatIconModule, MatDialogModule, FormsModule]
+      imports: [
+        MatSlideToggleModule,
+        SharedModule,
+        MatIconModule,
+        MatDialogModule,
+        FormsModule,
+      ],
     }).compileComponents();
   });
 
@@ -25,7 +31,6 @@ describe('ArkanoidComponent', () => {
     fixture.detectChanges();
   });
   describe('POSITIVE test cases', () => {
-
     it('should create', () => {
       expect(component).toBeTruthy();
     });
@@ -56,7 +61,12 @@ describe('ArkanoidComponent', () => {
     });
 
     it('should have a controlState object with upPressed and downPressed properties', () => {
-      expect(component['controlState']).toEqual({ up: false, down: false, w: false, s: false });
+      expect(component['controlState']).toEqual({
+        up: false,
+        down: false,
+        w: false,
+        s: false,
+      });
     });
 
     it('should have a ngAfterViewInit method', () => {
@@ -102,10 +112,8 @@ describe('ArkanoidComponent', () => {
     it('should have a repositionPaddles method', () => {
       expect(component['repositionPaddles']).toBeTruthy();
     });
-
   });
   describe('NEGATIVE test cases', () => {
-
     it('should not have a canvas element with an id of "gameCanvas"', () => {
       const canvasElement = fixture.debugElement.query(By.css('#gameCanvas'));
       expect(canvasElement).toBeFalsy();
@@ -132,7 +140,6 @@ describe('ArkanoidComponent', () => {
     });
   });
   describe('EDGE test cases', () => {
-
     it('should have a canvas element with a width of 800', () => {
       const canvasElement = fixture.debugElement.query(By.css('canvas'));
       expect(canvasElement.nativeElement.width).toEqual(800);
@@ -152,7 +159,12 @@ describe('ArkanoidComponent', () => {
     });
 
     it('should have a controlState object with upPressed and downPressed properties set to false at the start of the game', () => {
-      expect(component['controlState']).toEqual({ up: false, down: false, w: false, s: false });
+      expect(component['controlState']).toEqual({
+        up: false,
+        down: false,
+        w: false,
+        s: false,
+      });
     });
 
     it('should have a player1 object with a width of 20', () => {

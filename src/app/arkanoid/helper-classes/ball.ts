@@ -4,7 +4,13 @@ import { MoveableObject } from './moveableObject';
 export class Ball extends MoveableObject {
   private speedRatio: SpeedRatio;
 
-  constructor(height: number, width: number, maxSpeed: number, position: Position, speedRatio: SpeedRatio) {
+  constructor(
+    height: number,
+    width: number,
+    maxSpeed: number,
+    position: Position,
+    speedRatio: SpeedRatio
+  ) {
     super(height, width, maxSpeed, position);
     this.speedRatio = speedRatio;
   }

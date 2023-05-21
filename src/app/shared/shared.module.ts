@@ -5,18 +5,8 @@ import { InstructionsComponent } from './instructions/instructions.component';
 import { DialogModule } from '@angular/cdk/dialog';
 
 @NgModule({
-  declarations: [
-    FooterComponent,
-    InstructionsComponent
-  ],
-  imports: [
-    CommonModule,
-    DialogModule
-  ],
-  exports: [
-    FooterComponent,
-    InstructionsComponent,
-    DialogModule
-  ]
+  declarations: [FooterComponent, InstructionsComponent],
+  imports: [CommonModule, DialogModule],
+  exports: [FooterComponent, InstructionsComponent, DialogModule],
 })
-export class SharedModule { }
+export class SharedModule {}

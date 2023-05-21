@@ -30,7 +30,12 @@ export class ArkanoidComponent implements AfterViewInit {
   public player2Score = 0;
   public player1Score = 0;
   private interval: any;
-  private controlState: ControlState = { up: false, down: false, w: false, s: false };
+  private controlState: ControlState = {
+    up: false,
+    down: false,
+    w: false,
+    s: false,
+  };
 
   constructor() {
     this.arkanoidGame = new Arkanoid(this.height, this.width);
@@ -64,16 +69,16 @@ export class ArkanoidComponent implements AfterViewInit {
   private renderFrame(): void {
     if (this.arkanoidGame.checkScore()) {
       clearInterval(this.interval);
-      let scoreMessage = 'Player 1 scored!'
+      let scoreMessage = 'Player 1 scored!';
       if (this.arkanoidGame.checkScore() === 'left') {
-        scoreMessage = this.isTwoPlayerMode? 'Player 2 scored!' : 'AI Scored';
-        this.player2Score++
+        scoreMessage = this.isTwoPlayerMode ? 'Player 2 scored!' : 'AI Scored';
+        this.player2Score++;
       } else {
-        this.player1Score++
+        this.player1Score++;
       }
       this.context.fillStyle = CONFIG.TEXT.COLOR;
       this.context.font = '25px poppins';
-      this.context.fillText(scoreMessage, this.width/3+10, 300);
+      this.context.fillText(scoreMessage, this.width / 3 + 10, 300);
       setTimeout(() => {
         this.restartForNextRound();
       }, 500);
@@ -160,7 +165,7 @@ export class ArkanoidComponent implements AfterViewInit {
   }
 
   public restartForNextRound(): void {
-    this.clearAndMoveToDefaultPosition()
+    this.clearAndMoveToDefaultPosition();
     this.playGame();
   }
 
@@ -172,8 +177,14 @@ export class ArkanoidComponent implements AfterViewInit {
       { x: this.height / 2, y: this.width / 2 },
       { x: 1, y: 1 }
     );
-    this.arkanoidGame.player1 = new Paddle(100, 20, 1.5, { x: 5, y: this.height / 2 });
-    this.arkanoidGame.player2 = new Paddle(100, 20, 1.5, { x: this.width - 5, y: this.height / 2 });
+    this.arkanoidGame.player1 = new Paddle(100, 20, 1.5, {
+      x: 5,
+      y: this.height / 2,
+    });
+    this.arkanoidGame.player2 = new Paddle(100, 20, 1.5, {
+      x: this.width - 5,
+      y: this.height / 2,
+    });
   }
 
   private clearAndMoveToDefaultPosition() {
