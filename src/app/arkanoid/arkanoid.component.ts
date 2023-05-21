@@ -29,7 +29,7 @@ export class ArkanoidComponent implements AfterViewInit {
   public isTwoPlayerMode = true; // Default to 2-player mode
   public player2Score = 0;
   public player1Score = 0;
-  private interval: any;
+  public interval: string | number | NodeJS.Timer | undefined;
   private controlState: ControlState = {
     up: false,
     down: false,

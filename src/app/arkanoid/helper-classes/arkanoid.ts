@@ -40,7 +40,7 @@ export class Arkanoid {
 
   private movePlayer1Paddle(controlState: ControlState) {
     // Set acceleration, move player paddle based on input
-    var paddleBounds = this.player1.getCollisionBoundaries();
+    const paddleBounds = this.player1.getCollisionBoundaries();
     if (controlState.w && paddleBounds.top > 0) {
       this.player1.accelerateUp(0.03);
     } else if (controlState.s && paddleBounds.bottom < this.height) {
@@ -60,7 +60,7 @@ export class Arkanoid {
 
   private movePlayer2Paddle(controlState: ControlState) {
     // Set acceleration, move player paddle based on input
-    var paddleBounds = this.player2.getCollisionBoundaries();
+    const paddleBounds = this.player2.getCollisionBoundaries();
     if (controlState.up && paddleBounds.top > 0) {
       this.player2.accelerateUp(0.03);
     } else if (controlState.down && paddleBounds.bottom < this.height) {
@@ -73,7 +73,7 @@ export class Arkanoid {
 
   private checkCollisions() {
     // Bounce off top/bottom
-    let ballBounds = this.ball.getCollisionBoundaries();
+    const ballBounds = this.ball.getCollisionBoundaries();
     if (ballBounds.bottom >= this.height || ballBounds.top <= 0)
       this.ball.reverseY();
 
@@ -95,7 +95,7 @@ export class Arkanoid {
       // Set vertical speed ratio by taking ratio of
       // dist(centerOfBall, centerOfPaddle) to dist(topOfPaddle, centerOfPaddle)
       // Negate because pixels go up as we go down :)
-      var vsr =
+      let vsr =
         -(this.ball.getPosition().y - this.player1.getPosition().y) /
         (paddleBounds.top - this.player1.getPosition().y);
 
@@ -117,7 +117,7 @@ export class Arkanoid {
       // Set vertical speed ratio by taking ratio of
       // dist(centerOfBall, centerOfPaddle) to dist(topOfPaddle, centerOfPaddle)
       // Negate because pixels go up as we go down :)
-      var vsr =
+      let vsr =
         -(this.ball.getPosition().y - this.player2.getPosition().y) /
         (paddleBounds.top - this.player2.getPosition().y);
 

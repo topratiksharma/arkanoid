@@ -10,10 +10,7 @@ import { InstructionsComponent } from '../instructions/instructions.component';
 export class FooterComponent {
   constructor(public dialog: MatDialog) {}
   openInstructions() {
-    const dialogRef = this.dialog.open(InstructionsComponent, {
+    this.dialog.open(InstructionsComponent, {
       width: '600px',
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {});
-  }
+    });  }
 }
