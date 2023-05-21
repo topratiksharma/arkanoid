@@ -4,16 +4,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ArkanoidComponent } from './arkanoid.component';
-import { ArkanoidRoutingModule } from './arkanoid.routing';
+import { GameComponent } from './game.component';
+import { GameRoutingModule } from './game.routing';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [ArkanoidComponent],
+  declarations: [GameComponent],
   imports: [
-    ArkanoidRoutingModule,
+    GameRoutingModule,
     SharedModule,
     CommonModule,
     MatButtonModule,
@@ -24,4 +24,4 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDialogModule,
   ],
 })
-export class ArkanoidModule {}
+export class GameModule {}

@@ -2,7 +2,7 @@ import { ControlState } from '../../types/types';
 import { Ball } from './ball';
 import { Paddle } from './paddle';
 
-export class Arkanoid {
+export class Game {
   public ball: Ball;
   public player1: Paddle;
   public player2: Paddle;
@@ -127,7 +127,7 @@ export class Arkanoid {
     }
   }
 
-  checkScore() {
+  public checkScore() {
     const collisionBoundaries = this.ball.getCollisionBoundaries();
     if (collisionBoundaries.left <= 0) {
       return 'left';

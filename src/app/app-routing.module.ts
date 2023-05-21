@@ -5,7 +5,7 @@ const routes: Routes = [
   {
     path: 'game',
     loadChildren: () =>
-      import('./arkanoid/arkanoid.module').then((m) => m.ArkanoidModule),
+      import('./game/game.module').then((m) => m.GameModule),
   },
   {
     path: '',

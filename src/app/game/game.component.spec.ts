@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ArkanoidComponent } from './arkanoid.component';
+import { GameComponent } from './game.component';
 import { By } from '@angular/platform-browser';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SharedModule } from '../shared/shared.module';
@@ -8,13 +8,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 
-describe('ArkanoidComponent', () => {
-  let component: ArkanoidComponent;
-  let fixture: ComponentFixture<ArkanoidComponent>;
-
+describe('GameComponent', () => {
+  let component: GameComponent;
+  let fixture: ComponentFixture<GameComponent>;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ArkanoidComponent],
+      declarations: [GameComponent],
       imports: [
         MatSlideToggleModule,
         SharedModule,
@@ -24,9 +23,8 @@ describe('ArkanoidComponent', () => {
       ],
     }).compileComponents();
   });
-
   beforeEach(() => {
-    fixture = TestBed.createComponent(ArkanoidComponent);
+    fixture = TestBed.createComponent(GameComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -168,27 +166,27 @@ describe('ArkanoidComponent', () => {
     });
 
     it('should have a player1 object with a width of 20', () => {
-      const player1 = component['arkanoidGame'].player1;
+      const player1 = component['GameGame'].player1;
       expect(player1.getWidth()).toEqual(20);
     });
 
     it('should have a player2 object with a width of 20', () => {
-      const player2 = component['arkanoidGame'].player2;
+      const player2 = component['GameGame'].player2;
       expect(player2.getWidth()).toEqual(20);
     });
 
     it('should have a ball object with a starting position of { x: 300, y: 400 }', () => {
-      const ball = component['arkanoidGame'].ball;
+      const ball = component['GameGame'].ball;
       expect(ball.getPosition()).toEqual({ x: 300, y: 400 });
     });
 
     it('should have a player1 object with a starting position of { x: 5, y: 300 }', () => {
-      const player1 = component['arkanoidGame'].player1;
+      const player1 = component['GameGame'].player1;
       expect(player1.getPosition()).toEqual({ x: 5, y: 300 });
     });
 
     it('should have a player2 object with a starting position of { x: 795, y: 300 }', () => {
-      const player2 = component['arkanoidGame'].player2;
+      const player2 = component['GameGame'].player2;
       expect(player2.getPosition()).toEqual({ x: 795, y: 300 });
     });
   });
