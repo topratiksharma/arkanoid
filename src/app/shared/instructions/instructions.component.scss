@@ -1,9 +1,10 @@
-$cream: #f3f0e8;
-$ink: #111111;
-$ink-soft: rgba(17, 17, 17, 0.5);
-$ink-border: rgba(17, 17, 17, 0.12);
-$font-display: 'Fraunces', Georgia, serif;
-$font-ui: 'Bricolage Grotesque', sans-serif;
+$white: #ffffff;
+$black: #0a0a0a;
+$orange: #ff4d00;
+$border: #e2e2e2;
+$muted: #888888;
+$font-display: 'Bebas Neue', sans-serif;
+$font-ui: 'DM Sans', sans-serif;
 
 .modal-container {
   display: flex;
@@ -12,10 +13,9 @@ $font-ui: 'Bricolage Grotesque', sans-serif;
   font-family: $font-ui;
 
   &__box {
-    background-color: $cream;
-    border: 2px solid $ink;
-    box-shadow: 6px 6px 0 $ink;
-    color: $ink;
+    background-color: $white;
+    border: 1px solid $border;
+    color: $black;
     border-radius: 0;
     max-width: 560px;
     width: 100%;
@@ -28,15 +28,15 @@ $font-ui: 'Bricolage Grotesque', sans-serif;
       margin: 0;
 
       li {
-        padding-left: 20px;
+        padding-left: 18px;
         position: relative;
-        color: $ink-soft;
+        color: $muted;
 
         &::before {
           content: '—';
           position: absolute;
           left: 0;
-          color: $ink;
+          color: $orange;
           font-weight: 700;
         }
       }
@@ -47,17 +47,17 @@ $font-ui: 'Bricolage Grotesque', sans-serif;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 22px 24px 18px;
-    border-bottom: 1.5px solid $ink-border;
-    margin-bottom: 18px;
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid $border;
+    margin-bottom: 16px;
 
     h1 {
       font-family: $font-display;
-      font-size: 22px;
-      font-weight: 900;
-      letter-spacing: -0.02em;
-      color: $ink;
-      text-transform: none;
+      font-size: 28px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: $black;
+      text-transform: uppercase;
       margin: 0;
       padding: 0;
     }
@@ -69,13 +69,13 @@ $font-ui: 'Bricolage Grotesque', sans-serif;
     cursor: pointer;
     padding: 4px;
     line-height: 0;
-    color: $ink-soft;
+    color: $muted;
     transition: color 0.15s ease;
 
     img {
       width: 18px;
       height: 18px;
-      opacity: 0.5;
+      opacity: 0.4;
       transition: opacity 0.15s ease;
     }
 

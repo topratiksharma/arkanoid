@@ -1,8 +1,9 @@
-$cream: #f3f0e8;
-$ink: #111111;
-$ink-soft: rgba(17, 17, 17, 0.42);
-$ink-border: rgba(17, 17, 17, 0.14);
-$font-ui: 'Bricolage Grotesque', sans-serif;
+$white: #ffffff;
+$black: #0a0a0a;
+$orange: #ff4d00;
+$border: #e2e2e2;
+$muted: #888888;
+$font-ui: 'DM Sans', sans-serif;
 
 .footer {
   position: fixed;
@@ -12,28 +13,25 @@ $font-ui: 'Bricolage Grotesque', sans-serif;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 32px;
-  background-color: $cream;
-  border-top: 1.5px solid $ink-border;
+  padding: 12px 32px;
+  background-color: $white;
+  border-top: 1px solid $border;
   font-family: $font-ui;
   z-index: 10;
 
   &__attribution {
     font-size: 12px;
-    color: $ink-soft;
+    color: $muted;
     letter-spacing: 0.03em;
   }
 
   a {
-    color: rgba(17, 17, 17, 0.65);
+    color: $muted;
     text-decoration: none;
-    border-bottom: 1px solid $ink-border;
-    padding-bottom: 1px;
-    transition: border-color 0.15s ease, color 0.15s ease;
+    transition: color 0.15s ease;
 
     &:hover {
-      color: $ink;
-      border-color: $ink;
+      color: $black;
     }
   }
 
@@ -47,17 +45,16 @@ $font-ui: 'Bricolage Grotesque', sans-serif;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     background: transparent;
-    border: 1.5px solid rgba(17, 17, 17, 0.35);
-    color: rgba(17, 17, 17, 0.65);
-    padding: 8px 14px;
+    border: 1px solid $black;
+    color: $black;
+    padding: 7px 14px;
     cursor: pointer;
     border-radius: 0;
-    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    transition: background-color 0.15s ease, color 0.15s ease;
 
     &:hover {
-      background-color: $ink;
-      color: $cream;
-      border-color: $ink;
+      background-color: $black;
+      color: $white;
     }
   }
 }
