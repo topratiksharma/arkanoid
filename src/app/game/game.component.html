@@ -1,12 +1,32 @@
 <div class="arkanoid">
-  <mat-slide-toggle
-    class="arkanoid__toggle-mode"
-    color="warn"
-    [(ngModel)]="isTwoPlayerMode"
-    (change)="onPlayingModeChange(); playButton.disabled = false"
-  >
-    <span class="arkanoid__toggle-label">Vs Player 2</span>
-  </mat-slide-toggle>
+  <div class="arkanoid__header">
+    <div class="arkanoid__brand">
+      <span class="arkanoid__eyebrow">Classic Arcade</span>
+      <h1 class="arkanoid__title">Pong</h1>
+    </div>
+    <mat-slide-toggle
+      class="arkanoid__toggle-mode"
+      color="primary"
+      [(ngModel)]="isTwoPlayerMode"
+      (change)="onPlayingModeChange()"
+    >
+      <span class="arkanoid__toggle-label">Vs Player 2</span>
+    </mat-slide-toggle>
+  </div>
+
+  <div class="arkanoid__scoreboard">
+    <div class="arkanoid__player-score">
+      <div class="arkanoid__player-name">Player 1</div>
+      <div class="arkanoid__score-value">{{ player1Score }}</div>
+    </div>
+    <div class="arkanoid__player-score arkanoid__player-score--right">
+      <div class="arkanoid__player-name">
+        {{ isTwoPlayerMode ? "Player 2" : "AI" }}
+      </div>
+      <div class="arkanoid__score-value">{{ player2Score }}</div>
+    </div>
+  </div>
+
   <div class="arkanoid__game-container">
     <canvas
       #gameCanvas
@@ -14,25 +34,13 @@
       width="{{ width }}"
       height="{{ height }}"
     ></canvas>
-    <div class="arkanoid__score-container">
-      <div class="arkanoid__player-score">
-        <div class="arkanoid__player-name">Player 1</div>
-        <div class="arkanoid__score-value">{{ player1Score }}</div>
-      </div>
-      <div class="arkanoid__player-score">
-        <div class="arkanoid__player-name">
-          {{ isTwoPlayerMode ? "Player 2" : "Artificial Intelligence" }}
-        </div>
-        <div class="arkanoid__score-value">{{ player2Score }}</div>
-      </div>
-    </div>
   </div>
 
   <div class="arkanoid__controls">
     <button
       class="arkanoid__button arkanoid__button--primary"
-      (click)="playGame(); playButton.disabled = true"
-      #playButton
+      (click)="playGame()"
+      [disabled]="isPlaying"
     >
       <mat-icon>play_arrow</mat-icon>
       Play
@@ -41,7 +49,8 @@
       class="arkanoid__button arkanoid__button--secondary"
       (click)="resetPlayground()"
     >
-      <mat-icon>restart_alt</mat-icon>Reset
+      <mat-icon>restart_alt</mat-icon>
+      Reset
     </button>
   </div>
   <ark-footer></ark-footer>

@@ -1,26 +1,44 @@
+$cream: #f3f0e8;
+$ink: #111111;
+$ink-soft: rgba(17, 17, 17, 0.5);
+$ink-border: rgba(17, 17, 17, 0.12);
+$font-display: 'Fraunces', Georgia, serif;
+$font-ui: 'Bricolage Grotesque', sans-serif;
+
 .modal-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: $font-ui;
 
   &__box {
-    color: rgba(255, 255, 255, 0.85);
-    background-color: #0e0e1c;
-    border-radius: 2px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: $cream;
+    border: 2px solid $ink;
+    box-shadow: 6px 6px 0 $ink;
+    color: $ink;
+    border-radius: 0;
+    max-width: 560px;
+    width: 100%;
 
     ul {
       font-size: 14px;
-      line-height: 1.7;
+      line-height: 1.75;
       list-style: none;
-      padding: 0 16px 16px;
+      padding: 0 24px 24px;
       margin: 0;
 
-      li::before {
-        content: '—';
-        color: #bfff00;
-        margin-right: 10px;
-        font-weight: 700;
+      li {
+        padding-left: 20px;
+        position: relative;
+        color: $ink-soft;
+
+        &::before {
+          content: '—';
+          position: absolute;
+          left: 0;
+          color: $ink;
+          font-weight: 700;
+        }
       }
     }
   }
@@ -29,43 +47,40 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 20px 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-    margin-bottom: 16px;
+    padding: 22px 24px 18px;
+    border-bottom: 1.5px solid $ink-border;
+    margin-bottom: 18px;
 
     h1 {
-      text-transform: uppercase;
+      font-family: $font-display;
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: $ink;
+      text-transform: none;
       margin: 0;
       padding: 0;
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 18px;
-      letter-spacing: 0.14em;
-      color: #ffffff;
     }
   }
 
   button {
     background: none;
     border: none;
-    color: rgba(255, 255, 255, 0.45);
-    transition: color 0.15s ease;
+    cursor: pointer;
     padding: 4px;
     line-height: 0;
+    color: $ink-soft;
+    transition: color 0.15s ease;
 
     img {
-      filter: invert(1);
-      opacity: 0.45;
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
+      opacity: 0.5;
+      transition: opacity 0.15s ease;
     }
 
-    &:hover {
-      cursor: pointer;
-
-      img {
-        opacity: 0.9;
-      }
+    &:hover img {
+      opacity: 1;
     }
   }
 }

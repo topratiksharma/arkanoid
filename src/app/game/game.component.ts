@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   HostListener,
+  OnDestroy,
   ViewChild,
 } from '@angular/core';
 import { Game } from './helper-classes/game';
@@ -16,7 +17,7 @@ import { Ball } from './helper-classes/ball';
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'],
 })
-export class GameComponent implements AfterViewInit {
+export class GameComponent implements AfterViewInit, OnDestroy {
   @ViewChild('gameCanvas', { static: false }) canvasElement!: ElementRef;
 
   public width = 800;
@@ -28,7 +29,8 @@ export class GameComponent implements AfterViewInit {
   public isTwoPlayerMode = true;
   public player2Score = 0;
   public player1Score = 0;
-  public interval: any;
+  public isPlaying = false;
+  private interval: ReturnType<typeof setInterval> | undefined;
   private controlState: ControlState = {
     up: false,
     down: false,
@@ -48,6 +50,7 @@ export class GameComponent implements AfterViewInit {
   }
 
   public playGame(): void {
+    this.isPlaying = true;
     this.renderFrame();
     this.interval = setInterval(() => {
       this.arkanoidGame.tick(this.controlState, this.isTwoPlayerMode);
@@ -55,14 +58,32 @@ export class GameComponent implements AfterViewInit {
   }
 
   public resetPlayground(): void {
-    location.reload();
+    this.stopLoops();
+    this.player1Score = 0;
+    this.player2Score = 0;
+    this.isPlaying = false;
+    this.clearAndMoveToDefaultPosition();
+    this.drawBackground();
+    this.drawPaddles();
   }
 
   public onPlayingModeChange() {
-    this.clearAndMoveToDefaultPosition();
+    this.stopLoops();
     this.player1Score = 0;
     this.player2Score = 0;
-    clearInterval(this.interval);
+    this.isPlaying = false;
+    this.clearAndMoveToDefaultPosition();
+  }
+
+  public ngOnDestroy(): void {
+    this.stopLoops();
+  }
+
+  private stopLoops(): void {
+    if (this.interval !== undefined) {
+      clearInterval(this.interval);
+      this.interval = undefined;
+    }
     window.cancelAnimationFrame(this.animationId);
   }
 
@@ -77,7 +98,7 @@ export class GameComponent implements AfterViewInit {
         this.player1Score++;
       }
       this.context.fillStyle = CONFIG.TEXT.COLOR;
-      this.context.font = '700 28px "Barlow Condensed"';
+      this.context.font = '900 32px Fraunces, Georgia, serif';
       this.context.fillText(scoreMessage, this.width / 3 + 10, 300);
       setTimeout(() => {
         this.restartForNextRound();

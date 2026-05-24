@@ -1,49 +1,63 @@
+$cream: #f3f0e8;
+$ink: #111111;
+$ink-soft: rgba(17, 17, 17, 0.42);
+$ink-border: rgba(17, 17, 17, 0.14);
+$font-ui: 'Bricolage Grotesque', sans-serif;
+
 .footer {
-  width: 100vw;
   position: fixed;
   bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 32px;
+  background-color: $cream;
+  border-top: 1.5px solid $ink-border;
+  font-family: $font-ui;
+  z-index: 10;
 
   &__attribution {
-    position: absolute;
     font-size: 12px;
-    letter-spacing: 0.05em;
-    color: rgba(255, 255, 255, 0.3);
-    transform: translate(-50%);
-    bottom: 1.2rem;
-  }
-
-  button {
-    position: fixed;
-    bottom: 1rem;
-    padding: 8px 20px;
-    right: 1rem;
-    border-radius: 2px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: rgba(255, 255, 255, 0.45);
-    background: none;
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    transition:
-      color 0.15s ease,
-      border-color 0.15s ease;
-
-    &:hover {
-      color: rgba(255, 255, 255, 0.9);
-      border-color: rgba(255, 255, 255, 0.4);
-      cursor: pointer;
-    }
+    color: $ink-soft;
+    letter-spacing: 0.03em;
   }
 
   a {
-    color: rgba(255, 255, 255, 0.55);
+    color: rgba(17, 17, 17, 0.65);
     text-decoration: none;
-    transition: color 0.15s ease;
+    border-bottom: 1px solid $ink-border;
+    padding-bottom: 1px;
+    transition: border-color 0.15s ease, color 0.15s ease;
 
     &:hover {
-      color: rgba(255, 255, 255, 0.9);
+      color: $ink;
+      border-color: $ink;
+    }
+  }
+
+  button {
+    position: static;
+    bottom: auto;
+    right: auto;
+    font-family: $font-ui;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: transparent;
+    border: 1.5px solid rgba(17, 17, 17, 0.35);
+    color: rgba(17, 17, 17, 0.65);
+    padding: 8px 14px;
+    cursor: pointer;
+    border-radius: 0;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+
+    &:hover {
+      background-color: $ink;
+      color: $cream;
+      border-color: $ink;
     }
   }
 }
