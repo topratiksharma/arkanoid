@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { NgFor } from '@angular/common';
+
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'ark-instructions',
   standalone: true,
-  imports: [NgFor, MatDialogModule],
+  imports: [MatDialogModule],
   templateUrl: './instructions.component.html',
-  styleUrls: ['./instructions.component.scss'],
+  styleUrl: './instructions.component.scss',
 })
 export class InstructionsComponent {
   public rules = [

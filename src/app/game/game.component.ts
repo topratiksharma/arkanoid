@@ -21,7 +21,7 @@ import { Ball } from './helper-classes/ball';
   standalone: true,
   imports: [FormsModule, MatIconModule, MatSlideToggleModule, FooterComponent],
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.scss'],
+  styleUrl: './game.component.scss',
 })
 export class GameComponent implements AfterViewInit, OnDestroy {
   @ViewChild('gameCanvas', { static: false }) canvasElement!: ElementRef;
