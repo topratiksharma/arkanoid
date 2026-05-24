@@ -4,7 +4,7 @@ import {
   ElementRef,
   HostListener,
   OnDestroy,
-  ViewChild,
+  viewChild
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,7 +23,7 @@ import { Ball } from './helper-classes/ball';
     styleUrl: './game.component.scss'
 })
 export class GameComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('gameCanvas', { static: false }) canvasElement!: ElementRef;
+  readonly canvasElement = viewChild.required<ElementRef>('gameCanvas');
 
   public width = 800;
   public height = 600;
@@ -49,7 +49,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
   }
 
   public ngAfterViewInit(): void {
-    this.context = this.canvasElement.nativeElement.getContext('2d');
+    this.context = this.canvasElement().nativeElement.getContext('2d');
     this.drawBackground();
     this.drawPaddles();
   }
