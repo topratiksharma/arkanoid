@@ -17,11 +17,10 @@ import { Paddle } from './helper-classes/paddle';
 import { Ball } from './helper-classes/ball';
 
 @Component({
-  selector: 'ark-game',
-  standalone: true,
-  imports: [FormsModule, MatIconModule, MatSlideToggleModule, FooterComponent],
-  templateUrl: './game.component.html',
-  styleUrl: './game.component.scss',
+    selector: 'ark-game',
+    imports: [FormsModule, MatIconModule, MatSlideToggleModule, FooterComponent],
+    templateUrl: './game.component.html',
+    styleUrl: './game.component.scss'
 })
 export class GameComponent implements AfterViewInit, OnDestroy {
   @ViewChild('gameCanvas', { static: false }) canvasElement!: ElementRef;

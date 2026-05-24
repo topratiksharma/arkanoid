@@ -3,11 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { InstructionsComponent } from '../instructions/instructions.component';
 
 @Component({
-  selector: 'ark-footer',
-  standalone: true,
-  imports: [],
-  templateUrl: './footer.component.html',
-  styleUrl: './footer.component.scss',
+    selector: 'ark-footer',
+    imports: [],
+    templateUrl: './footer.component.html',
+    styleUrl: './footer.component.scss'
 })
 export class FooterComponent {
   constructor(public dialog: MatDialog) {}

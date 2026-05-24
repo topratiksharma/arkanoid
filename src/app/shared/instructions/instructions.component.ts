@@ -3,11 +3,10 @@ import { Component } from '@angular/core';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
-  selector: 'ark-instructions',
-  standalone: true,
-  imports: [MatDialogModule],
-  templateUrl: './instructions.component.html',
-  styleUrl: './instructions.component.scss',
+    selector: 'ark-instructions',
+    imports: [MatDialogModule],
+    templateUrl: './instructions.component.html',
+    styleUrl: './instructions.component.scss'
 })
 export class InstructionsComponent {
   public rules = [
