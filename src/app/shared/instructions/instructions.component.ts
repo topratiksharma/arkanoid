@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 
@@ -9,6 +9,8 @@ import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
     styleUrl: './instructions.component.scss'
 })
 export class InstructionsComponent {
+  dialogRef = inject<MatDialogRef<InstructionsComponent>>(MatDialogRef);
+
   public rules = [
     'Select the game type by toggle switch, Between AI Mode and two player.',
     'Click on the play button to begin.',
@@ -16,6 +18,4 @@ export class InstructionsComponent {
     'If playing 2 player mode, first players controls remain same, second player can move their paddle up and down via up and down arrow key.',
     'Click on reset to re-start the game.',
   ];
-
-  constructor(public dialogRef: MatDialogRef<InstructionsComponent>) {}
 }

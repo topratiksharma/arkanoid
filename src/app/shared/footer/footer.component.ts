@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { InstructionsComponent } from '../instructions/instructions.component';
 
@@ -9,7 +9,8 @@ import { InstructionsComponent } from '../instructions/instructions.component';
     styleUrl: './footer.component.scss'
 })
 export class FooterComponent {
-  constructor(public dialog: MatDialog) {}
+  dialog = inject(MatDialog);
+
 
   openInstructions() {
     this.dialog.open(InstructionsComponent, {
