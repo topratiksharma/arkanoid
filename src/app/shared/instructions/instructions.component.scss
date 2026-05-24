@@ -1,10 +1,12 @@
-$white: #ffffff;
-$black: #0a0a0a;
-$orange: #ff4d00;
-$border: #e2e2e2;
-$muted: #888888;
-$font-display: 'Bebas Neue', sans-serif;
-$font-ui: 'DM Sans', sans-serif;
+$bg: #1a1410;
+$surface: #231c15;
+$amber: #e8a020;
+$text: #f5edd8;
+$text-muted: rgba(245, 237, 216, 0.5);
+$border: rgba(245, 237, 216, 0.1);
+$border-amber: rgba(232, 160, 32, 0.28);
+$font-display: 'Cormorant Garamond', Georgia, serif;
+$font-ui: 'Outfit', sans-serif;
 
 .modal-container {
   display: flex;
@@ -13,31 +15,31 @@ $font-ui: 'DM Sans', sans-serif;
   font-family: $font-ui;
 
   &__box {
-    background-color: $white;
+    background-color: $surface;
     border: 1px solid $border;
-    color: $black;
+    color: $text;
     border-radius: 0;
     max-width: 560px;
     width: 100%;
 
     ul {
       font-size: 14px;
-      line-height: 1.75;
+      line-height: 1.8;
       list-style: none;
       padding: 0 24px 24px;
       margin: 0;
 
       li {
-        padding-left: 18px;
+        padding-left: 20px;
         position: relative;
-        color: $muted;
+        color: $text-muted;
 
         &::before {
           content: '—';
           position: absolute;
           left: 0;
-          color: $orange;
-          font-weight: 700;
+          color: $amber;
+          opacity: 0.7;
         }
       }
     }
@@ -47,17 +49,17 @@ $font-ui: 'DM Sans', sans-serif;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 24px 16px;
+    padding: 22px 24px 18px;
     border-bottom: 1px solid $border;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
 
     h1 {
       font-family: $font-display;
-      font-size: 28px;
-      font-weight: 400;
-      letter-spacing: 0.04em;
-      color: $black;
-      text-transform: uppercase;
+      font-style: italic;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: $text;
       margin: 0;
       padding: 0;
     }
@@ -69,18 +71,19 @@ $font-ui: 'DM Sans', sans-serif;
     cursor: pointer;
     padding: 4px;
     line-height: 0;
-    color: $muted;
+    color: $text-muted;
     transition: color 0.15s ease;
 
     img {
       width: 18px;
       height: 18px;
-      opacity: 0.4;
+      opacity: 0.35;
+      filter: invert(1);
       transition: opacity 0.15s ease;
     }
 
     &:hover img {
-      opacity: 1;
+      opacity: 0.8;
     }
   }
 }

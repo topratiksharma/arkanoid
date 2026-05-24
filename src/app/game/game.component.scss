@@ -1,10 +1,14 @@
-$white: #ffffff;
-$black: #0a0a0a;
-$orange: #ff4d00;
-$border: #e2e2e2;
-$muted: #888888;
-$font-display: 'Bebas Neue', sans-serif;
-$font-ui: 'DM Sans', sans-serif;
+$bg: #1a1410;
+$surface: #231c15;
+$amber: #e8a020;
+$amber-glow: rgba(232, 160, 32, 0.12);
+$text: #f5edd8;
+$text-muted: rgba(245, 237, 216, 0.42);
+$border: rgba(245, 237, 216, 0.1);
+$border-amber: rgba(232, 160, 32, 0.28);
+$font-display: 'Cormorant Garamond', Georgia, serif;
+$font-mono: 'DM Mono', monospace;
+$font-ui: 'Outfit', sans-serif;
 
 .arkanoid {
   min-height: 100%;
@@ -13,7 +17,8 @@ $font-ui: 'DM Sans', sans-serif;
   align-items: center;
   justify-content: center;
   padding: 32px 24px 72px;
-  background-color: $white;
+  background-color: $bg;
+  background-image: radial-gradient(ellipse at 50% 0%, #2e2018 0%, #0e0b08 70%);
   font-family: $font-ui;
 
   &__header {
@@ -22,8 +27,8 @@ $font-ui: 'DM Sans', sans-serif;
     justify-content: space-between;
     width: 100%;
     max-width: 800px;
-    padding-bottom: 12px;
-    margin-bottom: 14px;
+    padding-bottom: 14px;
+    margin-bottom: 16px;
     border-bottom: 1px solid $border;
   }
 
@@ -35,35 +40,44 @@ $font-ui: 'DM Sans', sans-serif;
   &__eyebrow {
     font-family: $font-ui;
     font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.25em;
+    font-weight: 500;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: $muted;
-    margin-bottom: 2px;
+    color: $amber;
+    margin-bottom: 4px;
+    opacity: 0.8;
   }
 
   &__title {
     font-family: $font-display;
-    font-size: 52px;
-    font-weight: 400;
-    color: $black;
+    font-style: italic;
+    font-size: 54px;
+    font-weight: 700;
+    color: $text;
     line-height: 1;
-    letter-spacing: 0.02em;
+    letter-spacing: -0.01em;
     margin: 0;
     padding: 0;
   }
 
   &__toggle-mode {
     margin-bottom: 0;
+
+    // override Material toggle colors for dark bg
+    --mdc-switch-selected-track-color: #{$amber};
+    --mdc-switch-selected-handle-color: #{$bg};
+    --mdc-switch-selected-hover-track-color: #{$amber};
+    --mdc-switch-selected-pressed-track-color: #{$amber};
+    --mdc-switch-selected-focus-track-color: #{$amber};
   }
 
   &__toggle-label {
     font-family: $font-ui;
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 400;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: $muted;
+    color: $text-muted;
   }
 
   &__scoreboard {
@@ -72,7 +86,7 @@ $font-ui: 'DM Sans', sans-serif;
     align-items: flex-end;
     width: 100%;
     max-width: 800px;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
 
   &__player-score {
@@ -87,20 +101,20 @@ $font-ui: 'DM Sans', sans-serif;
   &__player-name {
     font-family: $font-ui;
     font-size: 10px;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: $muted;
-    margin-bottom: 0;
+    color: $text-muted;
+    margin-bottom: 2px;
   }
 
   &__score-value {
-    font-family: $font-display;
-    font-size: 68px;
-    font-weight: 400;
-    color: $black;
+    font-family: $font-mono;
+    font-size: 64px;
+    font-weight: 500;
+    color: $amber;
     line-height: 1;
-    letter-spacing: 0.02em;
+    letter-spacing: -0.02em;
   }
 
   &__game-container {
@@ -109,7 +123,8 @@ $font-ui: 'DM Sans', sans-serif;
     max-width: 800px;
     height: 600px;
     overflow: hidden;
-    border: 1px solid $black;
+    border: 1px solid $border-amber;
+    box-shadow: 0 0 60px $amber-glow, 0 0 0 1px rgba(232, 160, 32, 0.06);
   }
 
   &__game {
@@ -125,7 +140,7 @@ $font-ui: 'DM Sans', sans-serif;
     display: flex;
     width: 100%;
     max-width: 800px;
-    margin-top: 14px;
+    margin-top: 16px;
     gap: 10px;
   }
 
@@ -137,45 +152,38 @@ $font-ui: 'DM Sans', sans-serif;
     padding: 15px 32px;
     font-family: $font-ui;
     font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
+    font-weight: 500;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     cursor: pointer;
     border-radius: 0;
-    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 
     &--primary {
-      background-color: $orange;
-      color: $white;
-      border: 1px solid $orange;
+      background-color: $amber;
+      color: $bg;
+      border: 1px solid $amber;
 
       &:hover:not(:disabled) {
-        background-color: #e64300;
-        border-color: #e64300;
-      }
-
-      &:active:not(:disabled) {
-        background-color: #cc3c00;
+        background-color: #f0aa28;
+        border-color: #f0aa28;
+        box-shadow: 0 0 20px rgba(232, 160, 32, 0.35);
       }
 
       &:disabled {
-        opacity: 0.28;
+        opacity: 0.25;
         pointer-events: none;
       }
     }
 
     &--secondary {
       background-color: transparent;
-      color: $black;
-      border: 1px solid $black;
+      color: $text-muted;
+      border: 1px solid $border;
 
       &:hover:not(:disabled) {
-        background-color: $black;
-        color: $white;
-      }
-
-      &:active:not(:disabled) {
-        opacity: 0.85;
+        border-color: $border-amber;
+        color: $text;
       }
     }
   }
