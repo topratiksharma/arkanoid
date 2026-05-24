@@ -6,6 +6,10 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { FooterComponent } from '../shared/footer/footer.component';
 import { Game } from './helper-classes/game';
 import { Boundaries, ControlState } from '../types/types';
 import { CONFIG, CONTROLS } from './contants';
@@ -14,6 +18,8 @@ import { Ball } from './helper-classes/ball';
 
 @Component({
   selector: 'ark-game',
+  standalone: true,
+  imports: [FormsModule, MatIconModule, MatSlideToggleModule, FooterComponent],
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'],
 })
