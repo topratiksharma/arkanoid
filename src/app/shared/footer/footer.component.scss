@@ -5,33 +5,45 @@
 
   &__attribution {
     position: absolute;
-    color: white;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.3);
     transform: translate(-50%);
-    bottom: 1rem;
-  }
-  &__linkedin {
-    color: #0a66c2;
+    bottom: 1.2rem;
   }
 
   button {
     position: fixed;
     bottom: 1rem;
-    padding: 7px 25px;
+    padding: 8px 20px;
     right: 1rem;
-    border-radius: 0.4rem;
-    border: 3px solid hsl(217, 16%, 45%);
-    color: lighten(hsl(217, 16%, 45%), 20%);
+    border-radius: 2px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.45);
     background: none;
-    font-weight: 600;
-    letter-spacing: 2px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease;
 
     &:hover {
-      background-color: rgba($color: #ffffff, $alpha: 0.8);
-      color: hsl(229, 25%, 31%);
+      color: rgba(255, 255, 255, 0.9);
+      border-color: rgba(255, 255, 255, 0.4);
       cursor: pointer;
     }
   }
+
   a {
-    color: #98d8f4;
+    color: rgba(255, 255, 255, 0.55);
+    text-decoration: none;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: rgba(255, 255, 255, 0.9);
+    }
   }
 }

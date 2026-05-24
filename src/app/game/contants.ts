@@ -7,16 +7,16 @@ export const CONTROLS = {
 
 export const CONFIG = {
   BALL: {
-    COLOR: 'orange',
+    COLOR: '#BFFF00',
   },
   PLAYER_1: {
-    COLOR: 'red',
+    COLOR: '#FFFFFF',
   },
   PLAYER_2: {
-    COLOR: 'green',
+    COLOR: '#FFFFFF',
   },
   TEXT: {
     COLOR: '#ffffff',
   },
-  BACKGROUND_COLOR: '#000000',
+  BACKGROUND_COLOR: '#07070F',
 };

@@ -77,7 +77,7 @@ export class GameComponent implements AfterViewInit {
         this.player1Score++;
       }
       this.context.fillStyle = CONFIG.TEXT.COLOR;
-      this.context.font = '25px poppins';
+      this.context.font = '700 28px "Barlow Condensed"';
       this.context.fillText(scoreMessage, this.width / 3 + 10, 300);
       setTimeout(() => {
         this.restartForNextRound();
@@ -127,6 +127,15 @@ export class GameComponent implements AfterViewInit {
   private drawBackground(): void {
     this.context.fillStyle = CONFIG.BACKGROUND_COLOR;
     this.context.fillRect(0, 0, this.width, this.height);
+
+    this.context.setLineDash([6, 14]);
+    this.context.strokeStyle = 'rgba(255,255,255,0.06)';
+    this.context.lineWidth = 2;
+    this.context.beginPath();
+    this.context.moveTo(this.width / 2, 0);
+    this.context.lineTo(this.width / 2, this.height);
+    this.context.stroke();
+    this.context.setLineDash([]);
   }
 
   private drawPaddles() {
@@ -135,23 +144,29 @@ export class GameComponent implements AfterViewInit {
   }
 
   private drawPlayerPaddle(player: Paddle, color: string): void {
-    this.context.fillStyle = color;
     const bounds: Boundaries = player.getCollisionBoundaries();
+    this.context.shadowBlur = 14;
+    this.context.shadowColor = 'rgba(255,255,255,0.5)';
+    this.context.fillStyle = color;
     this.context.fillRect(
       bounds.left,
       bounds.top,
       player.getWidth(),
       player.getHeight()
     );
+    this.context.shadowBlur = 0;
   }
 
   private drawBall(): void {
     const ball = this.arkanoidGame.ball;
     const bounds: Boundaries = ball.getCollisionBoundaries();
+    this.context.shadowBlur = 24;
+    this.context.shadowColor = '#BFFF00';
     this.context.fillStyle = CONFIG.BALL.COLOR;
     this.context.beginPath();
     this.context.arc(bounds.left, bounds.top, 10, 0, 2 * Math.PI);
     this.context.fill();
+    this.context.shadowBlur = 0;
   }
 
   public restartForNextRound(): void {
