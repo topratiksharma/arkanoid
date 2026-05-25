@@ -20,12 +20,12 @@ $font: 'IBM Plex Mono', monospace;
 
   &__attribution {
     font-size: 11px;
-    color: $muted;
+    color: #ffffff;
     letter-spacing: 0.05em;
   }
 
   a {
-    color: $muted;
+    color: #ffffff;
     text-decoration: none;
     transition: color 0.15s ease, text-shadow 0.15s ease;
 

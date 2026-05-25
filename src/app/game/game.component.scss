@@ -1,25 +1,40 @@
-$bg: #1a1410;
-$surface: #231c15;
-$amber: #e8a020;
-$amber-glow: rgba(232, 160, 32, 0.12);
-$text: #f5edd8;
-$text-muted: rgba(245, 237, 216, 0.42);
-$border: rgba(245, 237, 216, 0.1);
-$border-amber: rgba(232, 160, 32, 0.28);
-$font-display: 'Cormorant Garamond', Georgia, serif;
-$font-mono: 'DM Mono', monospace;
-$font-ui: 'Outfit', sans-serif;
+$bg: #050508;
+$cyan: #00f5ff;
+$pink: #ff2d78;
+$yellow: #ffe600;
+$white: #ffffff;
+$muted: rgba(255, 255, 255, 0.38);
+$border: rgba(255, 255, 255, 0.1);
+$font: 'IBM Plex Mono', monospace;
 
 .arkanoid {
-  min-height: 100%;
+  position: relative;
+  height: 100dvh;
+  overflow: hidden;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 32px 24px 72px;
+  padding: 16px 24px 60px;
   background-color: $bg;
-  background-image: radial-gradient(ellipse at 50% 0%, #2e2018 0%, #0e0b08 70%);
-  font-family: $font-ui;
+  font-family: $font;
+
+  // scanline overlay
+  &::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(0, 0, 0, 0.14) 3px,
+      rgba(0, 0, 0, 0.14) 4px
+    );
+    pointer-events: none;
+    z-index: 999;
+  }
 
   &__header {
     display: flex;
@@ -27,8 +42,8 @@ $font-ui: 'Outfit', sans-serif;
     justify-content: space-between;
     width: 100%;
     max-width: 800px;
-    padding-bottom: 14px;
-    margin-bottom: 16px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
     border-bottom: 1px solid $border;
   }
 
@@ -38,46 +53,39 @@ $font-ui: 'Outfit', sans-serif;
   }
 
   &__eyebrow {
-    font-family: $font-ui;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 500;
-    letter-spacing: 0.28em;
+    letter-spacing: 0.35em;
     text-transform: uppercase;
-    color: $amber;
+    color: $muted;
     margin-bottom: 4px;
-    opacity: 0.8;
   }
 
   &__title {
-    font-family: $font-display;
-    font-style: italic;
-    font-size: 54px;
+    font-size: 40px;
     font-weight: 700;
-    color: $text;
+    color: $white;
     line-height: 1;
-    letter-spacing: -0.01em;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     margin: 0;
     padding: 0;
+    text-shadow:
+      0 0 12px rgba(0, 245, 255, 0.5),
+      0 0 30px rgba(255, 45, 120, 0.3);
   }
 
   &__toggle-mode {
     margin-bottom: 0;
-
-    // override Material toggle colors for dark bg
-    --mdc-switch-selected-track-color: #{$amber};
-    --mdc-switch-selected-handle-color: #{$bg};
-    --mdc-switch-selected-hover-track-color: #{$amber};
-    --mdc-switch-selected-pressed-track-color: #{$amber};
-    --mdc-switch-selected-focus-track-color: #{$amber};
   }
 
   &__toggle-label {
-    font-family: $font-ui;
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 0.18em;
+    font-family: $font;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
-    color: $text-muted;
+    color: $muted;
   }
 
   &__scoreboard {
@@ -86,7 +94,7 @@ $font-ui: 'Outfit', sans-serif;
     align-items: flex-end;
     width: 100%;
     max-width: 800px;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
 
   &__player-score {
@@ -99,32 +107,50 @@ $font-ui: 'Outfit', sans-serif;
   }
 
   &__player-name {
-    font-family: $font-ui;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 500;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: $text-muted;
+    color: $muted;
     margin-bottom: 2px;
   }
 
   &__score-value {
-    font-family: $font-mono;
-    font-size: 64px;
-    font-weight: 500;
-    color: $amber;
+    font-size: 60px;
+    font-weight: 700;
     line-height: 1;
     letter-spacing: -0.02em;
   }
 
+  // Player 1 score (left) — cyan
+  &__player-score:not(&__player-score--right) &__score-value {
+    color: $cyan;
+    text-shadow:
+      0 0 12px rgba(0, 245, 255, 0.95),
+      0 0 35px rgba(0, 245, 255, 0.55),
+      0 0 70px rgba(0, 245, 255, 0.2);
+  }
+
+  // Player 2 / AI score (right) — pink
+  &__player-score--right &__score-value {
+    color: $pink;
+    text-shadow:
+      0 0 12px rgba(255, 45, 120, 0.95),
+      0 0 35px rgba(255, 45, 120, 0.55),
+      0 0 70px rgba(255, 45, 120, 0.2);
+  }
+
   &__game-container {
     position: relative;
+    // Responsive: fills viewport height, preserves 4:3 aspect, max 800px wide
     width: 100%;
-    max-width: 800px;
-    height: 600px;
+    max-width: min(800px, calc((100dvh - 320px) * 4 / 3));
+    aspect-ratio: 4 / 3;
     overflow: hidden;
-    border: 1px solid $border-amber;
-    box-shadow: 0 0 60px $amber-glow, 0 0 0 1px rgba(232, 160, 32, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow:
+      0 0 40px rgba(0, 245, 255, 0.08),
+      0 0 40px rgba(255, 45, 120, 0.06);
   }
 
   &__game {
@@ -139,8 +165,8 @@ $font-ui: 'Outfit', sans-serif;
   &__controls {
     display: flex;
     width: 100%;
-    max-width: 800px;
-    margin-top: 16px;
+    max-width: min(800px, calc((100dvh - 320px) * 4 / 3));
+    margin-top: 12px;
     gap: 10px;
   }
 
@@ -149,41 +175,39 @@ $font-ui: 'Outfit', sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 15px 32px;
-    font-family: $font-ui;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.2em;
+    padding: 14px 32px;
+    font-family: $font;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
     cursor: pointer;
     border-radius: 0;
-    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: box-shadow 0.15s ease, opacity 0.15s ease, background-color 0.15s ease;
 
     &--primary {
-      background-color: $amber;
+      background-color: $yellow;
       color: $bg;
-      border: 1px solid $amber;
+      border: 1px solid $yellow;
 
       &:hover:not(:disabled) {
-        background-color: #f0aa28;
-        border-color: #f0aa28;
-        box-shadow: 0 0 20px rgba(232, 160, 32, 0.35);
+        box-shadow: 0 0 22px rgba(255, 230, 0, 0.55), 0 0 50px rgba(255, 230, 0, 0.2);
       }
 
       &:disabled {
-        opacity: 0.25;
+        opacity: 0.2;
         pointer-events: none;
       }
     }
 
     &--secondary {
       background-color: transparent;
-      color: $text-muted;
+      color: $muted;
       border: 1px solid $border;
 
       &:hover:not(:disabled) {
-        border-color: $border-amber;
-        color: $text;
+        color: $white;
+        border-color: rgba(255, 255, 255, 0.3);
       }
     }
   }

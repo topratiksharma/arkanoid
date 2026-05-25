@@ -12,3 +12,61 @@ body {
 body {
   margin: 0;
 }
+
+// ─── Slide toggle overrides ──────────────────────────────────────────────────
+// Angular Material 20 reads --mat-slide-toggle-* variables (not --mdc-switch-*)
+// Must be set on the mat-slide-toggle host element to cascade inward.
+
+.arkanoid__toggle-mode {
+  // Track: bigger pill
+  --mat-slide-toggle-track-width: 58px;
+  --mat-slide-toggle-track-height: 30px;
+  --mat-slide-toggle-track-shape: 15px;
+
+  // Handle: larger circle
+  --mat-slide-toggle-handle-width: 24px;
+  --mat-slide-toggle-handle-height: 24px;
+  --mat-slide-toggle-handle-shape: 50%;
+  --mat-slide-toggle-selected-handle-size: 24px;
+  --mat-slide-toggle-unselected-handle-size: 20px;
+
+  // ON — cyan track, white handle
+  --mat-slide-toggle-selected-track-color: #00f5ff;
+  --mat-slide-toggle-selected-focus-track-color: #00f5ff;
+  --mat-slide-toggle-selected-hover-track-color: #00f5ff;
+  --mat-slide-toggle-selected-pressed-track-color: #00f5ff;
+  --mat-slide-toggle-selected-handle-color: #ffffff;
+  --mat-slide-toggle-selected-focus-handle-color: #ffffff;
+  --mat-slide-toggle-selected-hover-handle-color: #ffffff;
+  --mat-slide-toggle-selected-pressed-handle-color: #ffffff;
+
+  // OFF — dark translucent track, dim white handle
+  --mat-slide-toggle-unselected-track-color: rgba(255, 255, 255, 0.13);
+  --mat-slide-toggle-unselected-focus-track-color: rgba(255, 255, 255, 0.18);
+  --mat-slide-toggle-unselected-hover-track-color: rgba(255, 255, 255, 0.18);
+  --mat-slide-toggle-unselected-pressed-track-color: rgba(255, 255, 255, 0.18);
+  --mat-slide-toggle-unselected-handle-color: rgba(255, 255, 255, 0.55);
+  --mat-slide-toggle-unselected-focus-handle-color: rgba(255, 255, 255, 0.75);
+  --mat-slide-toggle-unselected-hover-handle-color: rgba(255, 255, 255, 0.75);
+  --mat-slide-toggle-unselected-pressed-handle-color: rgba(255, 255, 255, 0.75);
+
+  // Hide icon (belt-and-suspenders alongside hideIcon attribute)
+  --mat-slide-toggle-selected-icon-size: 0;
+  --mat-slide-toggle-unselected-icon-size: 0;
+}
+
+.arkanoid__toggle-mode .mdc-switch__icons {
+  display: none !important;
+}
+
+// ─── Dialog overrides ────────────────────────────────────────────────────────
+// Remove Material's default white background and rounded corners from dialog
+// so the modal-container__box styles show through cleanly.
+.mat-mdc-dialog-container {
+  --mdc-dialog-container-color: transparent;
+  --mdc-dialog-container-shape: 0px;
+}
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  box-shadow: none !important;
+}
