@@ -44,6 +44,7 @@
         (click)="isPlaying && !isPaused ? pauseGame() : isPaused ? resumeGame() : playGame()"
       >
         <mat-icon>{{ isPlaying && !isPaused ? 'pause' : 'play_arrow' }}</mat-icon>
+        {{ isPlaying && !isPaused ? 'Pause' : isPaused ? 'Resume' : 'Play' }}
       </button>
     </div>
 
@@ -54,7 +55,7 @@
           <button
             class="arkanoid__vol-seg"
             [class.arkanoid__vol-seg--active]="ballSpeed >= seg"
-            [style.height.px]="12 + seg * 3"
+            [style.height.px]="6 + seg * 2"
             (click)="setSpeed(seg)"
           ></button>
         }
