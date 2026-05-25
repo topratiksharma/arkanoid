@@ -35,6 +35,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
   public player2Score = 0;
   public player1Score = 0;
   public isPlaying = false;
+  public isPaused = false;
   private interval: ReturnType<typeof setInterval> | undefined;
   private controlState: ControlState = {
     up: false,
@@ -56,6 +57,24 @@ export class GameComponent implements AfterViewInit, OnDestroy {
 
   public playGame(): void {
     this.isPlaying = true;
+    this.isPaused = false;
+    this.startLoops();
+  }
+
+  public pauseGame(): void {
+    if (!this.isPlaying || this.isPaused) return;
+    this.stopLoops();
+    this.isPaused = true;
+    this.drawPauseOverlay();
+  }
+
+  public resumeGame(): void {
+    if (!this.isPaused) return;
+    this.isPaused = false;
+    this.startLoops();
+  }
+
+  private startLoops(): void {
     this.renderFrame();
     this.interval = setInterval(() => {
       this.arkanoidGame.tick(this.controlState, this.isTwoPlayerMode);
@@ -67,6 +86,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     this.player1Score = 0;
     this.player2Score = 0;
     this.isPlaying = false;
+    this.isPaused = false;
     this.clearAndMoveToDefaultPosition();
     this.drawBackground();
     this.drawPaddles();
@@ -77,6 +97,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     this.player1Score = 0;
     this.player2Score = 0;
     this.isPlaying = false;
+    this.isPaused = false;
     this.clearAndMoveToDefaultPosition();
   }
 
@@ -120,6 +141,11 @@ export class GameComponent implements AfterViewInit, OnDestroy {
 
   @HostListener('window:keydown', ['$event'])
   public keyUp(event: KeyboardEvent): void {
+    if (event.code === 'Space' && this.isPlaying) {
+      event.preventDefault();
+      this.isPaused ? this.resumeGame() : this.pauseGame();
+      return;
+    }
     if (event.code === CONTROLS.UP) {
       this.controlState.up = true;
     }
@@ -193,6 +219,23 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     this.context.arc(bounds.left, bounds.top, 10, 0, 2 * Math.PI);
     this.context.fill();
     this.context.shadowBlur = 0;
+  }
+
+  private drawPauseOverlay(): void {
+    this.context.fillStyle = 'rgba(0, 0, 0, 0.55)';
+    this.context.fillRect(0, 0, this.width, this.height);
+
+    this.context.textAlign = 'center';
+    this.context.fillStyle = '#00f5ff';
+    this.context.shadowBlur = 20;
+    this.context.shadowColor = '#00f5ff';
+    this.context.font = '700 48px IBM Plex Mono, monospace';
+    this.context.fillText('PAUSED', this.width / 2, this.height / 2 - 12);
+    this.context.font = '400 14px IBM Plex Mono, monospace';
+    this.context.fillStyle = 'rgba(255,255,255,0.45)';
+    this.context.shadowBlur = 0;
+    this.context.fillText('SPACE to resume', this.width / 2, this.height / 2 + 20);
+    this.context.textAlign = 'left';
   }
 
   public restartForNextRound(): void {

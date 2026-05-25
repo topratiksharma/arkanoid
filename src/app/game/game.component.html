@@ -48,6 +48,14 @@
     </button>
     <button
       class="arkanoid__button arkanoid__button--secondary"
+      (click)="isPaused ? resumeGame() : pauseGame()"
+      [disabled]="!isPlaying"
+    >
+      <mat-icon>{{ isPaused ? 'play_arrow' : 'pause' }}</mat-icon>
+      {{ isPaused ? 'Resume' : 'Pause' }}
+    </button>
+    <button
+      class="arkanoid__button arkanoid__button--secondary"
       (click)="resetPlayground()"
     >
       <mat-icon>restart_alt</mat-icon>
