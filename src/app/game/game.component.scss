@@ -212,6 +212,69 @@ $font: 'IBM Plex Mono', monospace;
     }
   }
 
+  &__speed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 0 4px;
+  }
+
+  &__speed-label {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: $muted;
+  }
+
+  &__speed-stepper {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border: 1px solid $border;
+  }
+
+  &__speed-btn {
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    color: $cyan;
+    font-family: $font;
+    font-size: 18px;
+    font-weight: 400;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s ease, color 0.15s ease;
+    line-height: 1;
+    padding: 0;
+
+    &:hover:not(:disabled) {
+      background-color: rgba(0, 245, 255, 0.1);
+    }
+
+    &:disabled {
+      color: $border;
+      cursor: not-allowed;
+    }
+  }
+
+  &__speed-value {
+    min-width: 36px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: $cyan;
+    border-left: 1px solid $border;
+    border-right: 1px solid $border;
+    line-height: 32px;
+    text-shadow: 0 0 10px rgba(0, 245, 255, 0.7);
+  }
+
   mat-icon {
     font-size: 18px;
     height: 18px;

@@ -45,6 +45,27 @@
       <mat-icon>{{ isPlaying && !isPaused ? 'pause' : 'play_arrow' }}</mat-icon>
       {{ isPlaying && !isPaused ? 'Pause' : isPaused ? 'Resume' : 'Play' }}
     </button>
+
+    <div class="arkanoid__cockpit">
+      <div class="arkanoid__stepper">
+        <span class="arkanoid__stepper-label arkanoid__stepper-label--cyan">Speed</span>
+        <div class="arkanoid__stepper-track">
+          <button class="arkanoid__stepper-btn" (click)="decreaseBallSpeed()" [disabled]="ballSpeed <= 1">−</button>
+          <span class="arkanoid__stepper-value arkanoid__stepper-value--cyan">{{ ballSpeed }}</span>
+          <button class="arkanoid__stepper-btn" (click)="increaseBallSpeed()">+</button>
+        </div>
+      </div>
+      <div class="arkanoid__cockpit-divider"></div>
+      <div class="arkanoid__stepper">
+        <span class="arkanoid__stepper-label arkanoid__stepper-label--pink">Balls</span>
+        <div class="arkanoid__stepper-track">
+          <button class="arkanoid__stepper-btn arkanoid__stepper-btn--pink" (click)="decreaseBallCount()" [disabled]="ballCount <= 1">−</button>
+          <span class="arkanoid__stepper-value arkanoid__stepper-value--pink">{{ ballCount }}</span>
+          <button class="arkanoid__stepper-btn arkanoid__stepper-btn--pink" (click)="increaseBallCount()">+</button>
+        </div>
+      </div>
+    </div>
+
     <button
       class="arkanoid__button arkanoid__button--secondary"
       (click)="resetPlayground()"

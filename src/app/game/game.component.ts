@@ -36,6 +36,8 @@ export class GameComponent implements AfterViewInit, OnDestroy {
   public player1Score = 0;
   public isPlaying = false;
   public isPaused = false;
+  public ballSpeed = 2;
+  public ballCount = 1;
   private interval: ReturnType<typeof setInterval> | undefined;
   private controlState: ControlState = {
     up: false,
@@ -134,7 +136,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
 
     this.drawBackground();
     this.drawPaddles();
-    this.drawBall();
+    this.drawBalls();
 
     this.animationId = window.requestAnimationFrame(() => this.renderFrame());
   }
@@ -209,15 +211,16 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     this.context.shadowBlur = 0;
   }
 
-  private drawBall(): void {
-    const ball = this.arkanoidGame.ball;
-    const bounds: Boundaries = ball.getCollisionBoundaries();
+  private drawBalls(): void {
     this.context.shadowBlur = 24;
     this.context.shadowColor = CONFIG.BALL.COLOR;
     this.context.fillStyle = CONFIG.BALL.COLOR;
-    this.context.beginPath();
-    this.context.arc(bounds.left, bounds.top, 10, 0, 2 * Math.PI);
-    this.context.fill();
+    for (const ball of this.arkanoidGame.balls) {
+      const bounds: Boundaries = ball.getCollisionBoundaries();
+      this.context.beginPath();
+      this.context.arc(bounds.left, bounds.top, 10, 0, 2 * Math.PI);
+      this.context.fill();
+    }
     this.context.shadowBlur = 0;
   }
 
@@ -243,13 +246,47 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     this.playGame();
   }
 
+  public increaseBallSpeed(): void {
+    this.ballSpeed++;
+    this.arkanoidGame.balls.forEach(b => b.setMaxSpeed(this.ballSpeed));
+  }
+
+  public decreaseBallSpeed(): void {
+    if (this.ballSpeed <= 1) return;
+    this.ballSpeed--;
+    this.arkanoidGame.balls.forEach(b => b.setMaxSpeed(this.ballSpeed));
+  }
+
+  public increaseBallCount(): void {
+    this.ballCount++;
+    this.clearAndMoveToDefaultPosition();
+    if (this.isPlaying && !this.isPaused) {
+      this.stopLoops();
+      this.startLoops();
+    }
+  }
+
+  public decreaseBallCount(): void {
+    if (this.ballCount <= 1) return;
+    this.ballCount--;
+    this.clearAndMoveToDefaultPosition();
+    if (this.isPlaying && !this.isPaused) {
+      this.stopLoops();
+      this.startLoops();
+    }
+  }
+
   private repositionPaddles(): void {
-    this.arkanoidGame.ball = new Ball(
-      15,
-      15,
-      2,
-      { x: this.height / 2, y: this.width / 2 },
-      { x: 1, y: 1 }
+    // Spread balls with varied angles so they don't all overlap
+    const yRatios = [0.6, -0.4, 0.8, -0.7, 0.3, -0.9, 0.5, -0.6, 0.7, -0.3];
+    this.arkanoidGame.balls = Array.from({ length: this.ballCount }, (_, i) =>
+      new Ball(
+        15,
+        15,
+        this.ballSpeed,
+        { x: this.height / 2, y: this.width / 2 },
+        { x: i % 2 === 0 ? 1 : -1, y: yRatios[i % yRatios.length] }
+      )
     );
     this.arkanoidGame.player1 = new Paddle(100, 20, 1.5, {
       x: 5,

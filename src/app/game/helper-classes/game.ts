@@ -3,7 +3,7 @@ import { Ball } from './ball';
 import { Paddle } from './paddle';
 
 export class Game {
-  public ball: Ball;
+  public balls: Ball[];
   public player1: Paddle;
   public player2: Paddle;
 
@@ -14,20 +14,15 @@ export class Game {
     this.height = height;
     this.width = width;
 
-    // Construct game objects
-    this.ball = new Ball(
-      15,
-      15,
-      2,
-      { x: height / 2, y: width / 2 },
-      { x: 1, y: 1 }
-    );
+    this.balls = [
+      new Ball(15, 15, 2, { x: height / 2, y: width / 2 }, { x: 1, y: 1 }),
+    ];
     this.player1 = new Paddle(100, 20, 1.5, { x: 5, y: height / 2 });
     this.player2 = new Paddle(100, 20, 1.5, { x: width - 5, y: height / 2 });
   }
 
   public tick(controlState: ControlState, isTwoPlayerMode: boolean) {
-    this.ball.move();
+    this.balls.forEach(ball => ball.move());
     this.movePlayer1Paddle(controlState);
 
     if (isTwoPlayerMode) {
@@ -39,7 +34,6 @@ export class Game {
   }
 
   private movePlayer1Paddle(controlState: ControlState) {
-    // Set acceleration, move player paddle based on input
     const paddleBounds = this.player1.getCollisionBoundaries();
     if (controlState.w && paddleBounds.top > 0) {
       this.player1.accelerateUp(0.03);
@@ -52,14 +46,17 @@ export class Game {
   }
 
   private movePlayer2PaddleAuto() {
-    if (this.ball.getPosition().y < this.player2.getPosition().y)
+    // Track the ball closest to player 2 (rightmost x position)
+    const target = this.balls.reduce((nearest, ball) =>
+      ball.getPosition().x > nearest.getPosition().x ? ball : nearest
+    );
+    if (target.getPosition().y < this.player2.getPosition().y)
       this.player2.accelerateUp(1);
     else this.player2.accelerateDown(1);
     this.player2.move();
   }
 
   private movePlayer2Paddle(controlState: ControlState) {
-    // Set acceleration, move player paddle based on input
     const paddleBounds = this.player2.getCollisionBoundaries();
     if (controlState.up && paddleBounds.top > 0) {
       this.player2.accelerateUp(0.03);
@@ -72,67 +69,57 @@ export class Game {
   }
 
   private checkCollisions() {
-    // Bounce off top/bottom
-    const ballBounds = this.ball.getCollisionBoundaries();
-    if (ballBounds.bottom >= this.height || ballBounds.top <= 0)
-      this.ball.reverseY();
+    const p1Bounds = this.player1.getCollisionBoundaries();
+    const p2Bounds = this.player2.getCollisionBoundaries();
 
-    let paddleBounds = this.player1.getCollisionBoundaries();
-
-    // Don't let paddle go past boundaries
-    if (paddleBounds.top <= 0 || paddleBounds.bottom >= this.height)
+    if (p1Bounds.top <= 0 || p1Bounds.bottom >= this.height)
       this.player1.decelerate(1);
 
-    // Player paddle hit
-    if (
-      ballBounds.left <= paddleBounds.right &&
-      paddleBounds.right - ballBounds.left <= 3 &&
-      ballBounds.bottom >= paddleBounds.top &&
-      ballBounds.top <= paddleBounds.bottom
-    ) {
-      this.ball.reverseX();
+    for (const ball of this.balls) {
+      const ballBounds = ball.getCollisionBoundaries();
 
-      // Set vertical speed ratio by taking ratio of
-      // dist(centerOfBall, centerOfPaddle) to dist(topOfPaddle, centerOfPaddle)
-      // Negate because pixels go up as we go down :)
-      let vsr =
-        -(this.ball.getPosition().y - this.player1.getPosition().y) /
-        (paddleBounds.top - this.player1.getPosition().y);
+      // Bounce off top/bottom
+      if (ballBounds.bottom >= this.height || ballBounds.top <= 0)
+        ball.reverseY();
 
-      // Max vsr is 1
-      vsr = Math.min(vsr, 1);
-      this.ball.setVerticalSpeedRatio(vsr);
-    }
+      // Player 1 paddle hit
+      if (
+        ballBounds.left <= p1Bounds.right &&
+        p1Bounds.right - ballBounds.left <= 3 &&
+        ballBounds.bottom >= p1Bounds.top &&
+        ballBounds.top <= p1Bounds.bottom
+      ) {
+        ball.reverseX();
+        let vsr =
+          -(ball.getPosition().y - this.player1.getPosition().y) /
+          (p1Bounds.top - this.player1.getPosition().y);
+        vsr = Math.min(vsr, 1);
+        ball.setVerticalSpeedRatio(vsr);
+      }
 
-    // PLAYER-2 paddle hit
-    paddleBounds = this.player2.getCollisionBoundaries();
-    if (
-      ballBounds.right <= paddleBounds.left &&
-      paddleBounds.left - ballBounds.right <= 3 &&
-      ballBounds.bottom >= paddleBounds.top &&
-      ballBounds.top <= paddleBounds.bottom
-    ) {
-      this.ball.reverseX();
-
-      // Set vertical speed ratio by taking ratio of
-      // dist(centerOfBall, centerOfPaddle) to dist(topOfPaddle, centerOfPaddle)
-      // Negate because pixels go up as we go down :)
-      let vsr =
-        -(this.ball.getPosition().y - this.player2.getPosition().y) /
-        (paddleBounds.top - this.player2.getPosition().y);
-
-      // Max vsr is 1
-      vsr = Math.min(vsr, 1);
-      this.ball.setVerticalSpeedRatio(vsr);
+      // Player 2 paddle hit
+      if (
+        ballBounds.right >= p2Bounds.left &&
+        ballBounds.right - p2Bounds.left <= 3 &&
+        ballBounds.bottom >= p2Bounds.top &&
+        ballBounds.top <= p2Bounds.bottom
+      ) {
+        ball.reverseX();
+        let vsr =
+          -(ball.getPosition().y - this.player2.getPosition().y) /
+          (p2Bounds.top - this.player2.getPosition().y);
+        vsr = Math.min(vsr, 1);
+        ball.setVerticalSpeedRatio(vsr);
+      }
     }
   }
 
-  public checkScore() {
-    const collisionBoundaries = this.ball.getCollisionBoundaries();
-    if (collisionBoundaries.left <= 0) {
-      return 'left';
-    } else if (collisionBoundaries.right >= this.width) {
-      return 'right';
-    } else return false;
+  public checkScore(): 'left' | 'right' | false {
+    for (const ball of this.balls) {
+      const bounds = ball.getCollisionBoundaries();
+      if (bounds.left <= 0) return 'left';
+      if (bounds.right >= this.width) return 'right';
+    }
+    return false;
   }
 }

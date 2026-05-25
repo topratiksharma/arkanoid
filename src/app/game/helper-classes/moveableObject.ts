@@ -51,4 +51,8 @@ export abstract class MoveableObject {
   getHeight(): number {
     return this.height;
   }
+
+  setMaxSpeed(speed: number): void {
+    this.maxSpeed = speed;
+  }
 }
