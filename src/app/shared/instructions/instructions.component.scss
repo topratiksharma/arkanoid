@@ -12,6 +12,7 @@ $font: 'IBM Plex Mono', monospace;
   justify-content: center;
   align-items: center;
   font-family: $font;
+  background-color: $surface;
 
   &__box {
     background-color: $surface;
