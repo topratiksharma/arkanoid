@@ -40,19 +40,10 @@
   <div class="arkanoid__controls">
     <button
       class="arkanoid__button arkanoid__button--primary"
-      (click)="playGame()"
-      [disabled]="isPlaying"
+      (click)="isPlaying && !isPaused ? pauseGame() : isPaused ? resumeGame() : playGame()"
     >
-      <mat-icon>play_arrow</mat-icon>
-      Play
-    </button>
-    <button
-      class="arkanoid__button arkanoid__button--secondary"
-      (click)="isPaused ? resumeGame() : pauseGame()"
-      [disabled]="!isPlaying"
-    >
-      <mat-icon>{{ isPaused ? 'play_arrow' : 'pause' }}</mat-icon>
-      {{ isPaused ? 'Resume' : 'Pause' }}
+      <mat-icon>{{ isPlaying && !isPaused ? 'pause' : 'play_arrow' }}</mat-icon>
+      {{ isPlaying && !isPaused ? 'Pause' : isPaused ? 'Resume' : 'Play' }}
     </button>
     <button
       class="arkanoid__button arkanoid__button--secondary"
