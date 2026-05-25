@@ -164,18 +164,19 @@ $font: 'IBM Plex Mono', monospace;
 
   &__controls {
     display: flex;
+    align-items: stretch;
     width: 100%;
     max-width: min(800px, calc((100dvh - 320px) * 4 / 3));
     margin-top: 12px;
-    gap: 10px;
+    border: 1px solid $border;
+    background: rgba(255, 255, 255, 0.015);
+    overflow: hidden;
   }
 
   &__button {
-    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 14px 32px;
     font-family: $font;
     font-size: 10px;
     font-weight: 700;
@@ -186,6 +187,8 @@ $font: 'IBM Plex Mono', monospace;
     transition: box-shadow 0.15s ease, opacity 0.15s ease, background-color 0.15s ease;
 
     &--primary {
+      flex: 1;
+      padding: 14px 32px;
       background-color: $yellow;
       color: $bg;
       border: 1px solid $yellow;
@@ -201,13 +204,15 @@ $font: 'IBM Plex Mono', monospace;
     }
 
     &--secondary {
+      flex: 0 0 auto;
+      padding: 14px 22px;
       background-color: transparent;
       color: $muted;
-      border: 1px solid $border;
+      border: none;
 
       &:hover:not(:disabled) {
         color: $white;
-        border-color: rgba(255, 255, 255, 0.3);
+        background-color: rgba(255, 255, 255, 0.04);
       }
     }
   }
@@ -280,5 +285,172 @@ $font: 'IBM Plex Mono', monospace;
     height: 18px;
     width: 18px;
     margin-right: 8px;
+  }
+
+  // ── Volume bar (speed) ──────────────────────────────────────────
+
+  &__vol-widget {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 12px 16px;
+    flex-shrink: 0;
+    border-right: 1px solid $border;
+  }
+
+  &__vol-label {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: $cyan;
+    text-shadow: 0 0 8px rgba(0, 245, 255, 0.45);
+  }
+
+  &__vol-bar {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+  }
+
+  &__vol-seg {
+    width: 12px;
+    border-radius: 1px;
+    border: none;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.07);
+    transition: background 80ms ease, box-shadow 80ms ease;
+    padding: 0;
+
+    &:nth-child(1), &:nth-child(2), &:nth-child(3) { --seg-color: #{$cyan}; }
+    &:nth-child(4), &:nth-child(5) { --seg-color: #7ff0cc; }
+    &:nth-child(6), &:nth-child(7) { --seg-color: #{$yellow}; }
+    &:nth-child(8) { --seg-color: #ff9900; }
+    &:nth-child(9), &:nth-child(10) { --seg-color: #{$pink}; }
+
+    &--active {
+      background: var(--seg-color);
+      box-shadow: 0 0 6px var(--seg-color);
+    }
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  &__vol-value {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: $muted;
+  }
+
+  // ── Play cell + small play button ──────────────────────────────
+
+  &__play-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 80px;
+    border-right: 1px solid $border;
+  }
+
+  &__btn-play {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: $yellow;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: box-shadow 0.15s ease, transform 0.1s ease;
+
+    mat-icon {
+      font-size: 22px;
+      width: 22px;
+      height: 22px;
+      color: $bg;
+      margin: 0;
+    }
+
+    &:hover {
+      box-shadow: 0 0 18px rgba(255, 230, 0, 0.6), 0 0 40px rgba(255, 230, 0, 0.25);
+      transform: scale(1.06);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  // ── Ball count control ──────────────────────────────────────────
+
+  &__ball-ctrl {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 12px 16px;
+    border-right: 1px solid $border;
+  }
+
+  &__ball-ctrl-label {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: $pink;
+    text-shadow: 0 0 8px rgba(255, 45, 120, 0.5);
+  }
+
+  &__ball-ctrl-track {
+    display: flex;
+    align-items: center;
+    border: 1px solid $border;
+  }
+
+  &__ball-ctrl-dec,
+  &__ball-ctrl-add {
+    width: 30px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    color: $pink;
+    font-family: $font;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.12s ease;
+    padding: 0;
+
+    &:hover:not(:disabled) {
+      background-color: rgba(255, 45, 120, 0.12);
+    }
+
+    &:disabled {
+      color: $border;
+      cursor: not-allowed;
+    }
+  }
+
+  &__ball-ctrl-value {
+    min-width: 34px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: $pink;
+    border-left: 1px solid $border;
+    border-right: 1px solid $border;
+    line-height: 32px;
+    text-shadow: 0 0 10px rgba(255, 45, 120, 0.7);
   }
 }

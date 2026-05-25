@@ -36,6 +36,8 @@ export class GameComponent implements AfterViewInit, OnDestroy {
   public player1Score = 0;
   public isPlaying = false;
   public isPaused = false;
+  readonly MAX_SPEED = 10;
+  readonly speedSegments = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   public ballSpeed = 2;
   public ballCount = 1;
   private interval: ReturnType<typeof setInterval> | undefined;
@@ -246,7 +248,14 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     this.playGame();
   }
 
+  public setSpeed(level: number): void {
+    if (level < 1 || level > this.MAX_SPEED) return;
+    this.ballSpeed = level;
+    this.arkanoidGame.balls.forEach(b => b.setMaxSpeed(this.ballSpeed));
+  }
+
   public increaseBallSpeed(): void {
+    if (this.ballSpeed >= this.MAX_SPEED) return;
     this.ballSpeed++;
     this.arkanoidGame.balls.forEach(b => b.setMaxSpeed(this.ballSpeed));
   }
