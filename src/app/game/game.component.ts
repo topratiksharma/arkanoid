@@ -60,6 +60,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
   }
 
   public playGame(): void {
+    this.stopLoops();
     this.isPlaying = true;
     this.isPaused = false;
     this.startLoops();
@@ -120,6 +121,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
   private renderFrame(): void {
     if (this.arkanoidGame.checkScore()) {
       clearInterval(this.interval);
+      this.interval = undefined;
       let scoreMessage = 'Player 1 scored!';
       if (this.arkanoidGame.checkScore() === 'left') {
         scoreMessage = this.isTwoPlayerMode ? 'Player 2 scored!' : 'AI Scored';
