@@ -103,7 +103,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
         this.player1Score++;
       }
       this.context.fillStyle = CONFIG.TEXT.COLOR;
-      this.context.font = '900 32px Fraunces, Georgia, serif';
+      this.context.font = '500 28px IBM Plex Mono, monospace';
       this.context.fillText(scoreMessage, this.width / 3 + 10, 300);
       setTimeout(() => {
         this.restartForNextRound();
@@ -172,7 +172,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
   private drawPlayerPaddle(player: Paddle, color: string): void {
     const bounds: Boundaries = player.getCollisionBoundaries();
     this.context.shadowBlur = 14;
-    this.context.shadowColor = 'rgba(255,255,255,0.5)';
+    this.context.shadowColor = color;
     this.context.fillStyle = color;
     this.context.fillRect(
       bounds.left,
@@ -187,7 +187,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     const ball = this.arkanoidGame.ball;
     const bounds: Boundaries = ball.getCollisionBoundaries();
     this.context.shadowBlur = 24;
-    this.context.shadowColor = '#BFFF00';
+    this.context.shadowColor = CONFIG.BALL.COLOR;
     this.context.fillStyle = CONFIG.BALL.COLOR;
     this.context.beginPath();
     this.context.arc(bounds.left, bounds.top, 10, 0, 2 * Math.PI);
