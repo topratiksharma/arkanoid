@@ -41,10 +41,18 @@
     <div class="arkanoid__play-cell">
       <button
         class="arkanoid__btn-play"
-        (click)="isPlaying && !isPaused ? pauseGame() : isPaused ? resumeGame() : playGame()"
+        (click)="
+          isPlaying && !isPaused
+            ? pauseGame()
+            : isPaused
+            ? resumeGame()
+            : playGame()
+        "
       >
-        <mat-icon>{{ isPlaying && !isPaused ? 'pause' : 'play_arrow' }}</mat-icon>
-        {{ isPlaying && !isPaused ? 'Pause' : isPaused ? 'Resume' : 'Play' }}
+        <mat-icon>{{
+          isPlaying && !isPaused ? "pause" : "play_arrow"
+        }}</mat-icon>
+        {{ isPlaying && !isPaused ? "Pause" : isPaused ? "Resume" : "Play" }}
       </button>
     </div>
 
@@ -55,9 +63,10 @@
           <button
             class="arkanoid__vol-seg"
             [class.arkanoid__vol-seg--active]="ballSpeed >= seg"
-            [style.height.px]="6 + seg * 2"
+            [style.height.px]="8 + seg * 3"
+            [attr.aria-label]="'Set speed to ' + seg"
             (click)="setSpeed(seg)"
-          ></button>
+          ><span class="arkanoid__sr-only">{{ seg }}</span></button>
         }
       </div>
       <span class="arkanoid__vol-value">{{ ballSpeed }}/10</span>
@@ -66,19 +75,25 @@
     <div class="arkanoid__ball-ctrl">
       <span class="arkanoid__ball-ctrl-label">Balls</span>
       <div class="arkanoid__ball-ctrl-track">
-        <button class="arkanoid__ball-ctrl-dec" (click)="decreaseBallCount()" [disabled]="ballCount <= 1">−</button>
+        <button
+          class="arkanoid__ball-ctrl-dec"
+          (click)="decreaseBallCount()"
+          [disabled]="ballCount <= 1"
+        >
+          -
+        </button>
         <span class="arkanoid__ball-ctrl-value">{{ ballCount }}</span>
-        <button class="arkanoid__ball-ctrl-add" (click)="increaseBallCount()">+</button>
+        <button class="arkanoid__ball-ctrl-add" (click)="increaseBallCount()">
+          +
+        </button>
       </div>
     </div>
-
-    <button
-      class="arkanoid__button arkanoid__button--secondary"
-      (click)="resetPlayground()"
-    >
-      <mat-icon>restart_alt</mat-icon>
-      Reset
-    </button>
+    <div class="arkanoid__reset-cell">
+      <button class="arkanoid__btn-reset" (click)="resetPlayground()">
+        <mat-icon>restart_alt</mat-icon>
+        Reset
+      </button>
+    </div>
   </div>
   <ark-footer />
 </div>

@@ -5,7 +5,7 @@ $yellow: #ffe600;
 $white: #ffffff;
 $muted: rgba(255, 255, 255, 0.38);
 $border: rgba(255, 255, 255, 0.1);
-$font: 'IBM Plex Mono', monospace;
+$font: "IBM Plex Mono", monospace;
 
 .arkanoid {
   position: relative;
@@ -22,7 +22,7 @@ $font: 'IBM Plex Mono', monospace;
 
   // scanline overlay
   &::before {
-    content: '';
+    content: "";
     position: fixed;
     inset: 0;
     background: repeating-linear-gradient(
@@ -70,8 +70,7 @@ $font: 'IBM Plex Mono', monospace;
     text-transform: uppercase;
     margin: 0;
     padding: 0;
-    text-shadow:
-      0 0 12px rgba(0, 245, 255, 0.5),
+    text-shadow: 0 0 12px rgba(0, 245, 255, 0.5),
       0 0 30px rgba(255, 45, 120, 0.3);
   }
 
@@ -125,19 +124,15 @@ $font: 'IBM Plex Mono', monospace;
   // Player 1 score (left) — cyan
   &__player-score:not(&__player-score--right) &__score-value {
     color: $cyan;
-    text-shadow:
-      0 0 12px rgba(0, 245, 255, 0.95),
-      0 0 35px rgba(0, 245, 255, 0.55),
-      0 0 70px rgba(0, 245, 255, 0.2);
+    text-shadow: 0 0 12px rgba(0, 245, 255, 0.95),
+      0 0 35px rgba(0, 245, 255, 0.55), 0 0 70px rgba(0, 245, 255, 0.2);
   }
 
   // Player 2 / AI score (right) — pink
   &__player-score--right &__score-value {
     color: $pink;
-    text-shadow:
-      0 0 12px rgba(255, 45, 120, 0.95),
-      0 0 35px rgba(255, 45, 120, 0.55),
-      0 0 70px rgba(255, 45, 120, 0.2);
+    text-shadow: 0 0 12px rgba(255, 45, 120, 0.95),
+      0 0 35px rgba(255, 45, 120, 0.55), 0 0 70px rgba(255, 45, 120, 0.2);
   }
 
   &__game-container {
@@ -148,8 +143,7 @@ $font: 'IBM Plex Mono', monospace;
     aspect-ratio: 4 / 3;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.14);
-    box-shadow:
-      0 0 40px rgba(0, 245, 255, 0.08),
+    box-shadow: 0 0 40px rgba(0, 245, 255, 0.08),
       0 0 40px rgba(255, 45, 120, 0.06);
   }
 
@@ -184,7 +178,8 @@ $font: 'IBM Plex Mono', monospace;
     text-transform: uppercase;
     cursor: pointer;
     border-radius: 0;
-    transition: box-shadow 0.15s ease, opacity 0.15s ease, background-color 0.15s ease;
+    transition: box-shadow 0.15s ease, opacity 0.15s ease,
+      background-color 0.15s ease;
 
     &--primary {
       flex: 1;
@@ -194,7 +189,8 @@ $font: 'IBM Plex Mono', monospace;
       border: 1px solid $yellow;
 
       &:hover:not(:disabled) {
-        box-shadow: 0 0 22px rgba(255, 230, 0, 0.55), 0 0 50px rgba(255, 230, 0, 0.2);
+        box-shadow: 0 0 22px rgba(255, 230, 0, 0.55),
+          0 0 50px rgba(255, 230, 0, 0.2);
       }
 
       &:disabled {
@@ -204,15 +200,17 @@ $font: 'IBM Plex Mono', monospace;
     }
 
     &--secondary {
-      flex: 0 0 auto;
-      padding: 14px 22px;
-      background-color: transparent;
+      flex: 1;
+      padding: 0 24px;
+      background-color: rgba(255, 255, 255, 0.03);
       color: $muted;
       border: none;
+      font-size: 13px;
+      letter-spacing: 0.3em;
 
       &:hover:not(:disabled) {
         color: $white;
-        background-color: rgba(255, 255, 255, 0.04);
+        background-color: rgba(255, 255, 255, 0.07);
       }
     }
   }
@@ -290,13 +288,13 @@ $font: 'IBM Plex Mono', monospace;
   // ── Volume bar (speed) ──────────────────────────────────────────
 
   &__vol-widget {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 4px;
-    padding: 8px 14px;
-    flex-shrink: 0;
+    gap: 5px;
+    padding: 12px 16px;
     border-right: 1px solid $border;
   }
 
@@ -316,19 +314,34 @@ $font: 'IBM Plex Mono', monospace;
   }
 
   &__vol-seg {
-    width: 12px;
-    border-radius: 1px;
+    width: 16px;
+    border-radius: 2px;
     border: none;
     cursor: pointer;
     background: rgba(255, 255, 255, 0.07);
     transition: background 80ms ease, box-shadow 80ms ease;
     padding: 0;
 
-    &:nth-child(1), &:nth-child(2), &:nth-child(3) { --seg-color: #{$cyan}; }
-    &:nth-child(4), &:nth-child(5) { --seg-color: #7ff0cc; }
-    &:nth-child(6), &:nth-child(7) { --seg-color: #{$yellow}; }
-    &:nth-child(8) { --seg-color: #ff9900; }
-    &:nth-child(9), &:nth-child(10) { --seg-color: #{$pink}; }
+    &:nth-child(1),
+    &:nth-child(2),
+    &:nth-child(3) {
+      --seg-color: #{$cyan};
+    }
+    &:nth-child(4),
+    &:nth-child(5) {
+      --seg-color: #7ff0cc;
+    }
+    &:nth-child(6),
+    &:nth-child(7) {
+      --seg-color: #{$yellow};
+    }
+    &:nth-child(8) {
+      --seg-color: #ff9900;
+    }
+    &:nth-child(9),
+    &:nth-child(10) {
+      --seg-color: #{$pink};
+    }
 
     &--active {
       background: var(--seg-color);
@@ -350,40 +363,50 @@ $font: 'IBM Plex Mono', monospace;
   // ── Play cell + small play button ──────────────────────────────
 
   &__play-cell {
+    flex: 1;
     display: flex;
     align-items: stretch;
-    flex-shrink: 0;
+    padding: 25px 10px;
     border-right: 1px solid $border;
   }
 
   &__btn-play {
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    padding: 0 20px;
-    background: $yellow;
+    gap: 10px;
+    padding: 0 24px;
+    background-color: $yellow;
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(0, 0, 0, 0.1) 3px,
+      rgba(0, 0, 0, 0.1) 4px
+    );
     border: none;
     cursor: pointer;
     font-family: $font;
-    font-size: 10px;
+    font-size: 13px;
     font-weight: 700;
-    letter-spacing: 0.25em;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
     color: $bg;
     transition: box-shadow 0.15s ease;
     white-space: nowrap;
 
     mat-icon {
-      font-size: 18px;
-      width: 18px;
-      height: 18px;
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
       color: $bg;
       margin: 0;
     }
 
     &:hover {
-      box-shadow: 0 0 22px rgba(255, 230, 0, 0.55), 0 0 50px rgba(255, 230, 0, 0.2);
+      box-shadow: 0 0 28px rgba(255, 230, 0, 0.5),
+        0 0 60px rgba(255, 230, 0, 0.2);
     }
   }
 
@@ -395,8 +418,8 @@ $font: 'IBM Plex Mono', monospace;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 4px;
-    padding: 8px 14px;
+    gap: 5px;
+    padding: 12px 16px;
     border-right: 1px solid $border;
   }
 
@@ -417,22 +440,23 @@ $font: 'IBM Plex Mono', monospace;
 
   &__ball-ctrl-dec,
   &__ball-ctrl-add {
-    width: 30px;
-    height: 32px;
+    width: 36px;
+    height: 44px;
     background: transparent;
     border: none;
-    color: $pink;
+    color: $muted;
     font-family: $font;
-    font-size: 18px;
+    font-size: 20px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.12s ease;
+    transition: background-color 0.12s ease, color 0.12s ease;
     padding: 0;
 
     &:hover:not(:disabled) {
-      background-color: rgba(255, 45, 120, 0.12);
+      color: $pink;
+      background-color: rgba(255, 45, 120, 0.1);
     }
 
     &:disabled {
@@ -442,14 +466,70 @@ $font: 'IBM Plex Mono', monospace;
   }
 
   &__ball-ctrl-value {
-    min-width: 34px;
+    min-width: 52px;
     text-align: center;
-    font-size: 18px;
+    font-size: 32px;
     font-weight: 700;
     color: $pink;
     border-left: 1px solid $border;
     border-right: 1px solid $border;
-    line-height: 32px;
-    text-shadow: 0 0 10px rgba(255, 45, 120, 0.7);
+    line-height: 44px;
+    text-shadow: 0 0 12px rgba(255, 45, 120, 0.9),
+      0 0 30px rgba(255, 45, 120, 0.4);
+  }
+
+  // ── Reset cell ──────────────────────────────────────────────────
+
+  &__reset-cell {
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+    padding: 25px 10px;
+  }
+
+  &__btn-reset {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 24px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid;
+    cursor: pointer;
+    font-family: $font;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: $muted;
+    transition: background-color 0.15s ease, color 0.15s ease;
+    white-space: nowrap;
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+      margin: 0;
+    }
+
+    &:hover {
+      color: $white;
+      background-color: rgba(255, 255, 255, 0.07);
+    }
+  }
+
+  // ── Accessibility ───────────────────────────────────────────────
+
+  &__sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 }
